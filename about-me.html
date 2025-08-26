@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Prashant Sachan</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .profile-section {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid #4dd0e1;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: 'Indie Flower', cursive;
+            color: #00838f;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .fun-facts {
+            background: #e0f7fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .fun-facts h2 {
+            color: #00838f;
+            font-family: 'Indie Flower', cursive;
+        }
+
+        .fun-fact-item {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .fun-fact-item::before {
+            content: "🌟";
+            position: absolute;
+            left: 0;
+        }
+
+        .contact-section {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 1rem;
+            color: #00838f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #00838f;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: #006064;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-section">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=PrashantSachan" alt="Prashant Sachan" class="profile-img">
+            <h1>Prashant Sachan</h1>
+            <p>Educational Content Creator & Technology Enthusiast</p>
+        </div>
+
+        <div class="fun-facts">
+            <h2>Fun Facts About Me</h2>
+            <div class="fun-fact-item">I love making learning fun and interactive for students!</div>
+            <div class="fun-fact-item">I've been teaching and creating educational content for over 5 years</div>
+            <div class="fun-fact-item">My favorite subjects are Mathematics and Science</div>
+            <div class="fun-fact-item">I believe every child has unique potential waiting to be discovered</div>
+        </div>
+
+        <div class="contact-section">
+            <h2>Let's Connect!</h2>
+            <div class="social-links">
+                <a href="mailto:prashant@example.com">📧 Email</a>
+                <a href="#">📱 Twitter</a>
+                <a href="#">👨‍🏫 LinkedIn</a>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Back to Home</a>
+            <a href="explore.html">Explore Content</a>
+            <a href="puzzles.html">Try Puzzles</a>
+        </div>
+    </div>
+</body>
+</html>

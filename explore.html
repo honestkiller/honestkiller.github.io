@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore & Learn</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+            font-family: 'Indie Flower', cursive;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .explore-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .explore-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-family: 'Indie Flower', cursive;
+        }
+
+        .card-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .nav-bar {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .nav-bar a {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: #2e7d32;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 0 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .nav-bar a:hover {
+            background: #1b5e20;
+        }
+
+        @media (max-width: 768px) {
+            .explore-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="index.html">Home</a>
+            <a href="puzzles.html">Puzzles</a>
+            <a href="about-me.html">About Me</a>
+        </div>
+
+        <h1>Explore & Learn</h1>
+
+        <div class="explore-grid">
+            <a href="science.html" class="explore-card">
+                <div class="card-icon">🔬</div>
+                <h2 class="card-title">Science Lab</h2>
+                <p class="card-description">Discover amazing experiments and learn about the world around us through fun scientific activities!</p>
+            </a>
+
+            <a href="math.html" class="explore-card">
+                <div class="card-icon">🔢</div>
+                <h2 class="card-title">Math Magic</h2>
+                <p class="card-description">Experience the magic of numbers through interactive problems and mind-bending math challenges.</p>
+            </a>
+
+            <a href="art.html" class="explore-card">
+                <div class="card-icon">🎨</div>
+                <h2 class="card-title">Creative Corner</h2>
+                <p class="card-description">Express yourself through art! Learn different techniques and create beautiful masterpieces.</p>
+            </a>
+
+            <a href="nature.html" class="explore-card">
+                <div class="card-icon">🌿</div>
+                <h2 class="card-title">Nature Study</h2>
+                <p class="card-description">Explore the wonderful world of plants, animals, and natural phenomena!</p>
+            </a>
+
+            <a href="history.html" class="explore-card">
+                <div class="card-icon">⏳</div>
+                <h2 class="card-title">Time Travel</h2>
+                <p class="card-description">Journey through time and learn about fascinating historical events and people.</p>
+            </a>
+
+            <a href="coding.html" class="explore-card">
+                <div class="card-icon">💻</div>
+                <h2 class="card-title">Code Club</h2>
+                <p class="card-description">Take your first steps into the world of programming with fun coding activities!</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
