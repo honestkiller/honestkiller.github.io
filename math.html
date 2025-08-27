@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Magic Game</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .game-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .problem {
+            font-size: 2.5rem;
+            margin: 2rem 0;
+            color: #2e7d32;
+            font-family: 'Indie Flower', cursive;
+        }
+
+        .answer-input {
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            width: 150px;
+            border: 2px solid #81c784;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .submit-btn {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #1b5e20;
+        }
+
+        .score {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            color: #2e7d32;
+        }
+
+        .result {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Math Magic Game 🎯</h1>
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="problem" id="problem"></div>
+        <input type="number" class="answer-input" id="answer" placeholder="Your answer">
+        <button class="submit-btn" onclick="checkAnswer()">Submit</button>
+        <div class="result" id="result"></div>
+        <button class="submit-btn" onclick="location.href='index.html'" style="background: #546e7a; margin-top: 2rem;">Back to Home</button>
+    </div>
+
+    <script>
+        let score = 0;
+        let correctAnswer = 0;
+
+        function generateProblem() {
+            const num1 = Math.floor(Math.random() * 12) + 1;
+            const num2 = Math.floor(Math.random() * 12) + 1;
+            const operators = ['+', '-', '×'];
+            const operator = operators[Math.floor(Math.random() * operators.length)];
+            
+            const problemElement = document.getElementById('problem');
+            problemElement.textContent = `${num1} ${operator} ${num2} = ?`;
+            
+            switch(operator) {
+                case '+':
+                    correctAnswer = num1 + num2;
+                    break;
+                case '-':
+                    correctAnswer = num1 - num2;
+                    break;
+                case '×':
+                    correctAnswer = num1 * num2;
+                    break;
+            }
+
+            document.getElementById('answer').value = '';
+            document.getElementById('result').style.display = 'none';
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value);
+            const resultElement = document.getElementById('result');
+            resultElement.style.display = 'block';
+
+            if (userAnswer === correctAnswer) {
+                score += 10;
+                resultElement.textContent = '🎉 Correct! +10 points';
+                resultElement.className = 'result correct';
+                setTimeout(generateProblem, 1500);
+            } else {
+                resultElement.textContent = '❌ Try again!';
+                resultElement.className = 'result incorrect';
+            }
+
+            document.getElementById('score').textContent = score;
+        }
+
+        // Start the game
+        generateProblem();
+
+        // Allow Enter key to submit answer
+        document.getElementById('answer').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+    </script>
+</body>
+</html>
