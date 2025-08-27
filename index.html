@@ -91,6 +91,39 @@
             padding: 1.5rem 0;
             color: #888;
         }
+        .welcome-banner {
+            background: linear-gradient(135deg, #00b4db, #0083b0);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .welcome-banner .close-banner {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            font-size: 18px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
         @media (max-width: 600px) {
             .container {
                 padding: 1rem;
@@ -120,6 +153,10 @@
         </nav>
     </header>
     <div class="container">
+        <div class="welcome-banner" id="welcomeBanner">
+            🌟 Welcome to Teaching Portal! Explore, Learn, and Have Fun! 
+            <span class="close-banner" onclick="closeBanner()">×</span>
+        </div>
         <h2>Welcome, Students!</h2>
         <p>
             This portal is designed to help you access resources, track your progress, and connect with your teachers. Explore the features below to get started!
@@ -153,5 +190,18 @@
     <footer>
         &copy; 2025 Teaching Portal. All rights reserved.
     </footer>
+    <script>
+        function closeBanner() {
+            document.getElementById('welcomeBanner').style.display = 'none';
+            localStorage.setItem('bannerClosed', 'true');
+        }
+
+        // Check if banner was previously closed
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('bannerClosed') === 'true') {
+                document.getElementById('welcomeBanner').style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
