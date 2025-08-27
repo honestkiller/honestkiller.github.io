@@ -101,6 +101,97 @@
 
         .success { background: #d4edda; color: #155724; }
         .error { background: #f8d7da; color: #721c24; }
+
+        /* Tutorial Modal Styles */
+        .tutorial-modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .tutorial-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+            animation: popIn 0.3s ease-out;
+            margin: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .tutorial-steps {
+            list-style-type: none;
+            padding: 0;
+            margin: 2rem auto;
+            max-width: 400px;
+            text-align: left;
+        }
+
+        .tutorial-steps li {
+            margin: 1rem 0;
+            line-height: 1.5;
+        }
+
+        .example-tiles {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem auto;
+            gap: 1.5rem;
+        }
+
+        .example-tiles span {
+            flex: 1;
+            text-align: left;
+        }
+
+        .tutorial-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 1.5rem auto 0;
+            width: 200px;
+            display: block;
+        }
+
+        .tutorial-btn:hover {
+            background: #1976d2;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .tutorial-content {
+                width: 85%;
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -111,12 +202,51 @@
         <div class="keyboard" id="keyboard"></div>
     </div>
 
+    <!-- Tutorial Modal -->
+    <div id="tutorialModal" class="tutorial-modal">
+        <div class="tutorial-content">
+            <h2>How to Play 🎮</h2>
+            <ul class="tutorial-steps">
+                <li>Guess the 5-letter word in 6 tries.</li>
+                <li>Each guess must be a valid 5-letter word.</li>
+                <li>After each guess, the color of the tiles will change:</li>
+            </ul>
+            <div class="example-tiles">
+                <div class="tile correct">W</div>
+                <span>Letter is correct and in right spot</span>
+            </div>
+            <div class="example-tiles">
+                <div class="tile present">O</div>
+                <span>Letter is in the word but wrong spot</span>
+            </div>
+            <div class="example-tiles">
+                <div class="tile absent">X</div>
+                <span>Letter is not in the word</span>
+            </div>
+            <button onclick="closeTutorial()" class="tutorial-btn">Start Playing!</button>
+        </div>
+    </div>
+
     <script>
         const WORD_LENGTH = 5;
         const MAX_GUESSES = 6;
-        const WORDS = ['LEARN', 'TEACH', 'STUDY', 'BOOKS', 'SMART', 'BRAIN'];
+        const WORDS = [
+            'ABOUT', 'ABOVE', 'ACTOR', 'BREAD', 'BEACH', 'BRAIN',
+            'CHAIR', 'CHILD', 'CLOCK', 'DANCE', 'DREAM', 'DRINK',
+            'EARTH', 'EAGLE', 'EARLY', 'FLASH', 'FRAME', 'FRESH',
+            'GRAPH', 'GREEN', 'GREAT', 'HAPPY', 'HEART', 'HOUSE',
+            'LEARN', 'LIGHT', 'LOGIC', 'MUSIC', 'MAGIC', 'MONTH',
+            'PAINT', 'PAPER', 'PEACE', 'QUEEN', 'QUICK', 'QUIET',
+            'ROBOT', 'ROUND', 'RIVER', 'SMART', 'SMILE', 'SPACE',
+            'TEACH', 'THINK', 'TRAIN', 'URBAN', 'UNITY', 'UNDER',
+            'VOICE', 'VALUE', 'VALID', 'WATER', 'WORLD', 'WRITE',
+            'YOUNG', 'YOUTH', 'YIELD', 'ZESTY', 'ZEBRA', 'ZONES'
+        ];
         
+        // Update word selection to include validation
         let currentWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+        console.log('Selected word:', currentWord); // For debugging
+        
         let currentGuess = [];
         let guesses = [];
         let gameOver = false;
@@ -214,6 +344,18 @@
             message.className = `message ${type}`;
         }
 
+        function closeTutorial() {
+            document.getElementById('tutorialModal').style.display = 'none';
+            localStorage.setItem('wordGameTutorialSeen', 'true');
+        }
+
+        // Check if tutorial should be shown
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!localStorage.getItem('wordGameTutorialSeen')) {
+                document.getElementById('tutorialModal').style.display = 'flex';
+            }
+        });
+
         // Initialize game
         initializeGrid();
         initializeKeyboard();
@@ -228,6 +370,11 @@
                 handleKeyPress(e.key.toUpperCase());
             }
         });
+
+        // Show tutorial on first load
+        window.onload = () => {
+            document.getElementById('tutorialModal').style.display = 'block';
+        };
     </script>
 </body>
 </html>
