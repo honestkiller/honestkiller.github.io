@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Club - Tic Tac Toe vs AI</title>
+    <!-- Common Icon Links -->
+    <link rel="icon" type="image/png" sizes="32x32" href="resources/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-touch-icon.png">
+    <link rel="manifest" href="resources/site.webmanifest">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Indie+Flower&display=swap" rel="stylesheet">
     <style>
+        @keyframes winLine {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
@@ -93,8 +103,9 @@
 
         .win-line {
             position: absolute;
-            background: #3f51b5;
-            transition: all 0.3s ease;
+            height: 5px;
+            background: #f44336;
+            animation: winLine 0.5s ease-in-out forwards;
         }
 
         .difficulty-select {
@@ -112,6 +123,122 @@
             opacity: 0.7;
             pointer-events: none;
         }
+
+        .scoreboard {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #e8eaf6;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        .score-item {
+            flex: 1;
+            text-align: center;
+            padding: 0.5rem 1rem;
+        }
+
+        .score-item span:first-child {
+            display: block;
+            font-weight: bold;
+            color: #3f51b5;
+        }
+
+        .score-item span:last-child {
+            font-size: 1.5rem;
+            color: #f44336;
+        }
+
+        .statistics {
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .statistics h3 {
+            font-size: 1.8rem;
+            color: #3f51b5;
+            margin-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-item {
+            background: #e8eaf6;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-item span {
+            display: block;
+        }
+
+        .stat-item span:first-child {
+            font-weight: bold;
+            color: #3f51b5;
+        }
+
+        .stat-item span:last-child {
+            font-size: 1.5rem;
+            color: #f44336;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            animation: popIn 0.3s ease-out;
+            max-width: 90%;
+            width: 400px;
+        }
+
+        .win-stats {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            color: #2e7d32;
+        }
+
+        /* Make sure modal displays properly */
+        .modal[style*="display: flex"] {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .board.game-over .cell {
+            pointer-events: none;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
@@ -125,6 +252,30 @@
             </select>
         </div>
         <div class="status" id="status">Your turn (X)</div>
+        <div class="scoreboard">
+            <div class="score-item">
+                <span>Wins</span>
+                <span id="playerScore">0</span>
+            </div>
+            <div class="score-item">
+                <span>Losses</span>
+                <span id="aiScore">0</span>
+            </div>
+            <div class="score-item">
+                <span>Draws</span>
+                <span id="drawScore">0</span>
+            </div>
+        </div>
+        <div class="statistics">
+            <div class="stat-item">
+                <span>Win Rate</span>
+                <span id="winRate">0%</span>
+            </div>
+            <div class="stat-item">
+                <span>Games Played</span>
+                <span id="gamesPlayed">0</span>
+            </div>
+        </div>
         <div class="board" id="board">
             <div class="cell" data-index="0"></div>
             <div class="cell" data-index="1"></div>
@@ -140,14 +291,44 @@
             <button onclick="resetGame()">New Game</button>
             <button onclick="location.href='index.html'">Back to Home</button>
         </div>
+
+        <div id="winModal" class="modal">
+            <div class="modal-content">
+                <h2 id="winMessage"></h2>
+                <div class="win-stats">
+                    <p>Games Won: <span id="modalWins">0</span></p>
+                </div>
+                <div class="modal-buttons">
+                    <button onclick="resetGame()">Play Again</button>
+                    <button onclick="location.href='index.html'">Home</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
+        const sounds = {
+            move: new Audio('data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=')
+        };
+
         let currentPlayer = 'X';
         let gameBoard = ['', '', '', '', '', '', '', '', ''];
         let gameActive = true;
         const HUMAN_PLAYER = 'X';
         const AI_PLAYER = 'O';
+
+        let scores = {
+            player: 0,
+            ai: 0,
+            draws: 0
+        };
+
+        const stats = {
+            wins: 0,
+            losses: 0,
+            draws: 0,
+            totalGames: 0
+        };
 
         const winCombos = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -169,15 +350,24 @@
 
             // Human move
             makeMove(index, HUMAN_PLAYER);
+            sounds.move.play();
+
             if (checkWin(HUMAN_PLAYER)) {
-                document.getElementById('status').textContent = 'You win! 🎉';
+                console.log('Human win detected'); // Debug line
+                stats.wins++;
+                stats.totalGames++;
+                updateStats();
                 gameActive = false;
+                showWinModal(HUMAN_PLAYER);
                 return;
             }
 
             if (checkDraw()) {
-                document.getElementById('status').textContent = "It's a draw! 🤝";
+                stats.draws++;
+                stats.totalGames++;
+                updateStats();
                 gameActive = false;
+                showWinModal('draw');
                 return;
             }
 
@@ -190,18 +380,25 @@
             
             const aiMove = getAIMove();
             makeMove(aiMove, AI_PLAYER);
+            sounds.move.play();
             
             document.getElementById('board').classList.remove('thinking');
 
             if (checkWin(AI_PLAYER)) {
-                document.getElementById('status').textContent = 'AI wins! 🤖';
+                stats.losses++;
+                stats.totalGames++;
+                updateStats();
                 gameActive = false;
+                showWinModal(AI_PLAYER);
                 return;
             }
 
             if (checkDraw()) {
-                document.getElementById('status').textContent = "It's a draw! 🤝";
+                stats.draws++;
+                stats.totalGames++;
+                updateStats();
                 gameActive = false;
+                showWinModal('draw');
                 return;
             }
 
@@ -284,9 +481,15 @@
         }
 
         function checkWin(player) {
-            return winCombos.some(combo => {
+            const hasWon = winCombos.some(combo => {
                 return combo.every(index => gameBoard[index] === player);
             });
+            
+            if (hasWon) {
+                console.log('Win detected for:', player); // Debug line
+                return true;
+            }
+            return false;
         }
 
         function checkDraw() {
@@ -303,6 +506,61 @@
                 cell.classList.remove('x', 'o');
             });
             document.getElementById('board').classList.remove('thinking');
+            document.getElementById('winModal').style.display = 'none';
+            document.getElementById('board').classList.remove('game-over');
+        }
+
+        function closeModal() {
+            document.getElementById('winModal').style.display = 'none';
+        }
+
+        function updateScores() {
+            document.getElementById('playerScore').textContent = scores.player;
+            document.getElementById('aiScore').textContent = scores.ai;
+            document.getElementById('drawScore').textContent = scores.draws;
+
+            // Update game statistics
+            const totalGames = scores.player + scores.ai + scores.draws;
+            const winRate = totalGames > 0 ? ((scores.player / totalGames) * 100).toFixed(2) : 0;
+            document.getElementById('winRate').textContent = `${winRate}%`;
+            document.getElementById('gamesPlayed').textContent = totalGames;
+        }
+
+        function updateStats() {
+            const winRate = stats.totalGames > 0 
+                ? Math.round((stats.wins / stats.totalGames) * 100) 
+                : 0;
+            
+            document.getElementById('playerScore').textContent = stats.wins;
+            document.getElementById('aiScore').textContent = stats.losses;
+            document.getElementById('drawScore').textContent = stats.draws;
+            document.getElementById('winRate').textContent = `${winRate}%`;
+            document.getElementById('gamesPlayed').textContent = stats.totalGames;
+        }
+
+        function showWinModal(winner) {
+            console.log('Showing win modal for:', winner); // Debug line
+            const modal = document.getElementById('winModal');
+            const message = document.getElementById('winMessage');
+            const board = document.getElementById('board');
+            
+            if (!modal || !message) {
+                console.error('Modal elements not found!');
+                return;
+            }
+
+            modal.style.display = 'flex';
+            board.classList.add('game-over');
+            
+            if (winner === HUMAN_PLAYER) {
+                message.innerHTML = '🎉 Congratulations! You Won! 🎉';
+                document.getElementById('modalWins').textContent = stats.wins;
+                sounds.win.play();
+            } else if (winner === AI_PLAYER) {
+                message.innerHTML = '🤖 AI Wins! Better luck next time! 🎮';
+            } else {
+                message.innerHTML = "🤝 It's a Draw! 🤝";
+            }
         }
     </script>
 </body>
