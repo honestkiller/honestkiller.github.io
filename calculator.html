@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="resources/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-touch-icon.png">
+    <link rel="manifest" href="resources/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .nav-bar a {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background: #2e7d32;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 0 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .nav-bar a:hover {
+            background: #1b5e20;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+            font-family: 'Indie Flower', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .calculator-section {
+            display: flex;
+            justify-content: center;
+        }
+
+        .calculator-wrapper {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .calculator-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #2e7d32;
+            padding-bottom: 1rem;
+        }
+
+        .calculator-header h2 {
+            color: #2e7d32;
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .display {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            border: 3px solid #2e7d32;
+            border-radius: 8px;
+            padding: 1.2rem;
+            text-align: right;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            min-height: 60px;
+            word-wrap: break-word;
+            word-break: break-all;
+            color: #2e7d32;
+            font-weight: 600;
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.6rem;
+        }
+
+        .btn {
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid #2e7d32;
+            border-radius: 8px;
+            background: white;
+            color: #2e7d32;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: #e8f5e9;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn.operator {
+            background: #c8e6c9;
+            color: #1b5e20;
+        }
+
+        .btn.operator:hover {
+            background: #a5d6a7;
+            box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
+        }
+
+        .btn.equals {
+            background: #2e7d32;
+            color: white;
+            grid-column: span 2;
+            font-size: 1.2rem;
+        }
+
+        .btn.equals:hover {
+            background: #1b5e20;
+            box-shadow: 0 4px 12px rgba(27, 94, 32, 0.4);
+        }
+
+        .btn.clear {
+            background: #ef5350;
+            color: white;
+            grid-column: span 2;
+        }
+
+        .btn.clear:hover {
+            background: #c62828;
+            box-shadow: 0 4px 12px rgba(198, 40, 40, 0.3);
+        }
+
+        .instructions-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            max-height: 900px;
+            overflow-y: auto;
+        }
+
+        .instructions-section h2 {
+            color: #2e7d32;
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #2e7d32;
+            padding-bottom: 1rem;
+        }
+
+        .instruction-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .instruction-group h3 {
+            color: #1b5e20;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .instruction-group ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .instruction-group li {
+            color: #333;
+            margin-bottom: 0.6rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .instruction-group li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .example {
+            background: #f5f5f5;
+            border-left: 4px solid #2e7d32;
+            padding: 0.8rem;
+            margin-top: 0.6rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #1b5e20;
+        }
+
+        .instructions-section::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .instructions-section::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .instructions-section::-webkit-scrollbar-thumb {
+            background: #2e7d32;
+            border-radius: 10px;
+        }
+
+        .instructions-section::-webkit-scrollbar-thumb:hover {
+            background: #1b5e20;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .instructions-section {
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .calculator-wrapper {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="index.html">Home</a>
+            <a href="explore.html">Back to Explore</a>
+        </div>
+
+        <h1>🧮 Scientific Calculator</h1>
+
+        <div class="main-content">
+            <!-- Calculator -->
+            <div class="calculator-section">
+                <div class="calculator-wrapper">
+                    <div class="calculator-header">
+                        <h2>Calculator</h2>
+                    </div>
+                    <div class="display" id="display">0</div>
+                    <div class="buttons-grid">
+                        <button class="btn clear" onclick="clearDisplay()">AC</button>
+                        <button class="btn operator" onclick="appendOperator('/')">÷</button>
+                        <button class="btn operator" onclick="appendOperator('*')">×</button>
+
+                        <button class="btn" onclick="appendNumber('7')">7</button>
+                        <button class="btn" onclick="appendNumber('8')">8</button>
+                        <button class="btn" onclick="appendNumber('9')">9</button>
+                        <button class="btn operator" onclick="appendOperator('-')">−</button>
+
+                        <button class="btn" onclick="appendNumber('4')">4</button>
+                        <button class="btn" onclick="appendNumber('5')">5</button>
+                        <button class="btn" onclick="appendNumber('6')">6</button>
+                        <button class="btn operator" onclick="appendOperator('+')">+</button>
+
+                        <button class="btn" onclick="appendNumber('1')">1</button>
+                        <button class="btn" onclick="appendNumber('2')">2</button>
+                        <button class="btn" onclick="appendNumber('3')">3</button>
+                        <button class="btn operator" onclick="appendOperator('%')">%</button>
+
+                        <button class="btn" onclick="appendNumber('0')">0</button>
+                        <button class="btn" onclick="appendNumber('.')">.</button>
+                        <button class="btn equals" onclick="calculate()">=</button>
+
+                        <button class="btn operator" onclick="toggleSign()">+/−</button>
+                        <button class="btn operator" onclick="squareRoot()">√</button>
+                        <button class="btn operator" onclick="square()">x²</button>
+                        <button class="btn operator" onclick="reciprocal()">1/x</button>
+
+                        <button class="btn operator" onclick="sine()">sin</button>
+                        <button class="btn operator" onclick="cosine()">cos</button>
+                        <button class="btn operator" onclick="tangent()">tan</button>
+                        <button class="btn operator" onclick="logarithm()">log</button>
+
+                        <button class="btn operator" onclick="naturalLog()">ln</button>
+                        <button class="btn operator" onclick="exponential()">e^x</button>
+                        <button class="btn operator" onclick="pi()">π</button>
+                        <button class="btn operator" onclick="factorial()">n!</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions-section">
+                <h2>📖 How to Use</h2>
+
+                <div class="instruction-group">
+                    <h3>🔢 Basic Operations</h3>
+                    <ul>
+                        <li>Click number buttons to enter values</li>
+                        <li>Use +, −, ×, ÷ for addition, subtraction, multiplication, division</li>
+                        <li>Press = to see the result</li>
+                        <li>Press AC to clear and start over</li>
+                        <div class="example">Example: 15 + 8 = 23</div>
+                    </ul>
+                </div>
+
+                <div class="instruction-group">
+                    <h3>📐 Trigonometric Functions</h3>
+                    <ul>
+                        <li><strong>sin, cos, tan</strong> - Calculate sine, cosine, tangent (angles in degrees)</li>
+                        <li>Enter the angle value first, then click the function button</li>
+                        <div class="example">Example: sin(90°) = 1</div>
+                        <div class="example">Example: cos(0°) = 1</div>
+                    </ul>
+                </div>
+
+                <div class="instruction-group">
+                    <h3>🔬 Advanced Math Functions</h3>
+                    <ul>
+                        <li><strong>√</strong> - Square root of a number</li>
+                        <li><strong>x²</strong> - Square a number (multiply by itself)</li>
+                        <li><strong>1/x</strong> - Calculate reciprocal (1 divided by the number)</li>
+                        <li><strong>%</strong> - Modulo (find remainder)</li>
+                        <div class="example">Example: √16 = 4</div>
+                        <div class="example">Example: 5² = 25</div>
+                    </ul>
+                </div>
+
+                <div class="instruction-group">
+                    <h3>📊 Logarithmic Functions</h3>
+                    <ul>
+                        <li><strong>log</strong> - Base 10 logarithm</li>
+                        <li><strong>ln</strong> - Natural logarithm (base e)</li>
+                        <li><strong>e^x</strong> - e raised to the power x</li>
+                        <div class="example">Example: log(100) = 2</div>
+                        <div class="example">Example: ln(1) = 0</div>
+                    </ul>
+                </div>
+
+                <div class="instruction-group">
+                    <h3>✨ Special Functions</h3>
+                    <ul>
+                        <li><strong>π</strong> - Display the value of pi (3.14159...)</li>
+                        <li><strong>n!</strong> - Calculate factorial (e.g., 5! = 5×4×3×2×1 = 120)</li>
+                        <li><strong>+/−</strong> - Toggle sign (convert positive to negative and vice versa)</li>
+                        <div class="example">Example: 5! = 120</div>
+                        <div class="example">Example: −(25) shows -25</div>
+                    </ul>
+                </div>
+
+                <div class="instruction-group">
+                    <h3>💡 Tips & Tricks</h3>
+                    <ul>
+                        <li>You can use the decimal point (.) for non-whole numbers</li>
+                        <li>Chain operations together: 5 + 3 × 2 = calculate for complex math</li>
+                        <li>Use scientific functions for engineering and physics problems</li>
+                        <li>Press the same operation twice to perform it instantly</li>
+                        <div class="example">Example: 5 + 3 × 2 = 16</div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let displayValue = '0';
+        let operator = null;
+        let previousValue = null;
+        let shouldResetDisplay = false;
+
+        function updateDisplay() {
+            document.getElementById('display').textContent = displayValue;
+        }
+
+        function appendNumber(num) {
+            if (shouldResetDisplay) {
+                displayValue = num;
+                shouldResetDisplay = false;
+            } else {
+                if (displayValue === '0' && num !== '.') {
+                    displayValue = num;
+                } else if (num === '.' && displayValue.includes('.')) {
+                    return;
+                } else {
+                    displayValue += num;
+                }
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (operator !== null) {
+                calculate();
+            }
+            previousValue = parseFloat(displayValue);
+            operator = op;
+            shouldResetDisplay = true;
+        }
+
+        function calculate() {
+            if (operator === null || previousValue === null) return;
+
+            let result;
+            const current = parseFloat(displayValue);
+
+            switch(operator) {
+                case '+': result = previousValue + current; break;
+                case '-': result = previousValue - current; break;
+                case '*': result = previousValue * current; break;
+                case '/': result = previousValue / current; break;
+                case '%': result = previousValue % current; break;
+                default: return;
+            }
+
+            displayValue = result.toString();
+            operator = null;
+            previousValue = null;
+            shouldResetDisplay = true;
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            displayValue = '0';
+            operator = null;
+            previousValue = null;
+            shouldResetDisplay = false;
+            updateDisplay();
+        }
+
+        function toggleSign() {
+            displayValue = (parseFloat(displayValue) * -1).toString();
+            updateDisplay();
+        }
+
+        function squareRoot() {
+            displayValue = Math.sqrt(parseFloat(displayValue)).toString();
+            updateDisplay();
+        }
+
+        function square() {
+            displayValue = (parseFloat(displayValue) ** 2).toString();
+            updateDisplay();
+        }
+
+        function reciprocal() {
+            displayValue = (1 / parseFloat(displayValue)).toString();
+            updateDisplay();
+        }
+
+        function sine() {
+            const radians = (parseFloat(displayValue) * Math.PI) / 180;
+            displayValue = Math.sin(radians).toString();
+            updateDisplay();
+        }
+
+        function cosine() {
+            const radians = (parseFloat(displayValue) * Math.PI) / 180;
+            displayValue = Math.cos(radians).toString();
+            updateDisplay();
+        }
+
+        function tangent() {
+            const radians = (parseFloat(displayValue) * Math.PI) / 180;
+            displayValue = Math.tan(radians).toString();
+            updateDisplay();
+        }
+
+        function logarithm() {
+            displayValue = Math.log10(parseFloat(displayValue)).toString();
+            updateDisplay();
+        }
+
+        function naturalLog() {
+            displayValue = Math.log(parseFloat(displayValue)).toString();
+            updateDisplay();
+        }
+
+        function exponential() {
+            displayValue = Math.exp(parseFloat(displayValue)).toString();
+            updateDisplay();
+        }
+
+        function pi() {
+            displayValue = Math.PI.toString();
+            updateDisplay();
+        }
+
+        function factorial() {
+            let num = parseInt(displayValue);
+            let result = 1;
+            for (let i = 2; i <= num; i++) {
+                result *= i;
+            }
+            displayValue = result.toString();
+            updateDisplay();
+        }
+    </script>
+</body>
+</html>

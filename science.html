@@ -61,11 +61,10 @@
         }
         .videos-container {
             display: flex;
-            overflow-x: auto;
-            overflow-y: hidden;
+            align-items: center;
+            justify-content: center;
             gap: 1rem;
             padding: 1rem;
-            scroll-behavior: smooth;
             flex: 1;
             width: 100%;
         }
@@ -85,8 +84,8 @@
         }
         .video-item {
             flex-shrink: 0;
-            width: 100%;
-            max-width: 90vh;
+            width: 80%;
+            max-width: 500px;
             aspect-ratio: 9 / 16;
             border-radius: 12px;
             overflow: hidden;
@@ -114,30 +113,38 @@
         
         <div class="videos-section">
             <h2>📹 Science Videos</h2>
-            <div class="videos-container">
-                <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/3VN1KVOMJhY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/5ZmyN-kp2gE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/TDNay0tvnLY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/1aG5iqA_iU0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/3e-vAehFODE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/J8bd1ymDUSQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/p1POFj5J3UE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </div>
+            <div class="videos-container" id="videoContainer"></div>
         </div>
     </div>
+
+    <script>
+        const videoIds = [
+            '3VN1KVOMJhY',
+            '5ZmyN-kp2gE',
+            'TDNay0tvnLY',
+            '3e-vAehFODE',
+            'J8bd1ymDUSQ',
+            'p1POFj5J3UE'
+        ];
+
+        function getRandomVideo() {
+            return videoIds[Math.floor(Math.random() * videoIds.length)];
+        }
+
+        function loadRandomVideo() {
+            const randomVideoId = getRandomVideo();
+            const container = document.getElementById('videoContainer');
+            
+            const videoItem = document.createElement('div');
+            videoItem.className = 'video-item';
+            videoItem.innerHTML = `
+                <iframe src="https://www.youtube.com/embed/${randomVideoId}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            `;
+            
+            container.appendChild(videoItem);
+        }
+
+        window.addEventListener('load', loadRandomVideo);
+    </script>
 </body>
 </html>
