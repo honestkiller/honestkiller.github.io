@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Travel - Mathematicians</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="resources/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-touch-icon.png">
+    <link rel="manifest" href="resources/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #1a237e 0%, #311b92 50%, #1a237e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .nav-bar a {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 0 0.5rem;
+            transition: background 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-bar a:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-family: 'Indie Flower', cursive;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #b3b3ff;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .mathematicians-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .mathematician-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #7c3aed;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mathematician-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(124, 58, 237, 0.4);
+        }
+
+        .mathematician-name {
+            font-size: 1.8rem;
+            color: #1a237e;
+            margin: 0 0 0.5rem 0;
+            font-family: 'Indie Flower', cursive;
+        }
+
+        .mathematician-era {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .mathematician-about {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .mathematician-history {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 8px;
+            color: #444;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            border-left: 4px solid #7c3aed;
+        }
+
+        .mathematician-history-title {
+            font-weight: 600;
+            color: #1a237e;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #b3b3ff;
+            padding: 2rem;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .mathematicians-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="index.html">Home</a>
+            <a href="explore.html">Back to Explore</a>
+        </div>
+
+        <h1>⏰ Time Travel Through Math</h1>
+        <p class="subtitle">Journey through the brilliant minds who shaped mathematics</p>
+
+        <div id="mathematiciansContainer" class="mathematicians-grid"></div>
+    </div>
+
+    <script>
+        const mathematicians = [
+            {
+                name: "Isaac Newton",
+                era: "1643-1727",
+                about: "English mathematician, physicist, and author who is widely recognised as one of the most influential scientists of all time and as a key figure in the scientific revolution.",
+                history: "Developed calculus independently from Leibniz, formulated the laws of motion and universal gravitation, and built the first reflecting telescope. His work laid the foundation for classical mechanics."
+            },
+            {
+                name: "Leonhard Euler",
+                era: "1707-1783",
+                about: "Swiss mathematician, physicist, astronomer, geographer, logician and engineer who founded the study of graph theory and topology. One of the most prolific mathematicians of all time.",
+                history: "Made discoveries in nearly every area of mathematics including calculus, number theory, and complex analysis. Introduced modern mathematical notation including e, i, and the Σ summation notation. Worked on over 800 papers."
+            },
+            {
+                name: "Carl Friedrich Gauss",
+                era: "1777-1855",
+                about: "German mathematician and physicist who contributed significantly to many fields including algebra, analysis, differential geometry, matrix theory, number theory, and statistics.",
+                history: "Proved the Fundamental Theorem of Algebra, developed Gaussian distribution in statistics, and made groundbreaking work in number theory. Known as the 'Prince of Mathematicians' and 'greatest mathematician since antiquity'."
+            },
+            {
+                name: "Euclid",
+                era: "323-283 BCE",
+                about: "Greek mathematician, often referred to as the 'founder of geometry' and 'father of geometry'. He is most famous for his treatise on mathematics called the Elements, one of the most influential works ever written.",
+                history: "Compiled and systematized mathematical knowledge of his time in the Elements, which remained the primary geometry textbook for over 2000 years. Established axiomatic method in mathematics."
+            },
+            {
+                name: "Pythagoras",
+                era: "570-495 BCE",
+                about: "Ionian Greek philosopher and the eponymous founder of Pythagoreanism. He is famous for the Pythagorean theorem, one of the most important theorems in mathematics.",
+                history: "Established a community based on mathematics and philosophy. Made discoveries in geometry and number theory. The Pythagorean theorem (a² + b² = c²) revolutionized understanding of right triangles."
+            },
+            {
+                name: "René Descartes",
+                era: "1596-1650",
+                about: "French philosopher, mathematician, and scientist widely regarded as the father of modern philosophy and the founder of analytic geometry. Known for the famous quote 'Cogito, ergo sum'.",
+                history: "Invented the Cartesian coordinate system (named after him), linking algebra and geometry. This breakthrough enabled mathematicians to solve geometric problems algebraically and vice versa."
+            },
+            {
+                name: "Pierre de Fermat",
+                era: "1601-1665",
+                about: "French lawyer and mathematician who is given credit for early developments that led to infinitesimal calculus, including his technique of adequality. Made major contributions in multiple mathematical fields.",
+                history: "Known for Fermat's Last Theorem (proved in 1995, 330 years later), contributions to number theory, probability theory with Pascal, and analytic geometry. Pioneer in optical physics."
+            },
+            {
+                name: "Blaise Pascal",
+                era: "1623-1662",
+                about: "French mathematician, physicist, inventor, philosopher, and writer who made important contributions to natural and applied sciences. Child prodigy who made discoveries at an early age.",
+                history: "Invented Pascal's Triangle, founded modern probability theory with Fermat, contributed to physics and philosophy. Also invented the pascaline (early calculator) and studied atmospheric pressure."
+            },
+            {
+                name: "Bernhard Riemann",
+                era: "1826-1866",
+                about: "German mathematician who made contributions to analysis, number theory, and differential geometry, some of which were later used in Einstein's theory of general relativity.",
+                history: "Introduced Riemannian geometry and the Riemann hypothesis (still unsolved). Made foundational contributions to complex analysis, topology, and mathematical physics."
+            },
+            {
+                name: "Emmy Noether",
+                era: "1882-1935",
+                about: "German mathematician who made groundbreaking contributions to abstract algebra and theoretical physics. A respected advisor of Albert Einstein and considered one of the greatest mathematicians of all time.",
+                history: "Proved Noether's theorem, which established the fundamental connection between symmetry and conservation laws in physics. Pioneer in abstract algebra, ring theory, and theoretical physics."
+            },
+            {
+                name: "Aryabhata",
+                era: "476-550 CE",
+                about: "Indian mathematician and astronomer who produced important works in mathematics and astronomy. He introduced the concept of zero and the decimal place value system, revolutionizing mathematics.",
+                history: "Authored the Aryabhatiya, a groundbreaking work in mathematics and astronomy. Invented the place-value decimal number system (0-9), calculated the value of pi to 4 decimal places, and solved linear and quadratic equations."
+            },
+            {
+                name: "Bhaskara II",
+                era: "1114-1185 CE",
+                about: "Indian mathematician and astronomer who was the leader of the astronomical school at Ujjain. Made major contributions to algebra, geometry, and trigonometry, centuries ahead of European mathematicians.",
+                history: "Authored the Siddhanta Shiromani, covering advanced mathematics and astronomy. Developed chakravala method for solving Pell's equations, worked extensively with fractions and algebraic equations, and created early calculus concepts."
+            },
+            {
+                name: "Brahmagupta",
+                era: "598-670 CE",
+                about: "Indian mathematician and astronomer who authored the Brahmasputha Siddhanta, one of the first texts to treat zero as a number and give rules for arithmetic with zero.",
+                history: "Formalized the concepts of zero and negative numbers in mathematics. Derived the formula for the area of a cyclic quadrilateral (Brahmagupta's formula), contributed to algebra and geometry, and advanced trigonometry."
+            },
+            {
+                name: "Madhava of Sangamagrama",
+                era: "1350-1425 CE",
+                about: "Indian mathematician and astronomer credited with the discovery of the power series representation of trigonometric functions, predating European mathematicians by centuries.",
+                history: "Derived infinite series for pi, sine, and cosine, centuries before Taylor series in Europe. Founded the Kerala School of Mathematics, pioneering early calculus concepts including derivatives and integrals."
+            },
+            {
+                name: "Srinivasa Ramanujan",
+                era: "1887-1920 CE",
+                about: "Indian mathematician of extraordinary talent who made contributions to mathematical analysis, number theory, infinite series, and continued fractions. Despite limited formal education, became one of the greatest mathematicians.",
+                history: "Made over 3,500 mathematical formulas and identities, many of which were completely novel. Collaborated with G.H. Hardy at Cambridge University. His work continues to inspire mathematicians; the Ramanujan constant and numerous theorems bear his name."
+            }
+        ];
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function loadMathematicians() {
+            const shuffled = shuffleArray(mathematicians);
+            const selected = shuffled.slice(0, 1);
+            const container = document.getElementById('mathematiciansContainer');
+            
+            container.innerHTML = '';
+
+            if (selected.length === 0) {
+                container.innerHTML = '<div class="empty-state">No mathematicians to display. Try again!</div>';
+                return;
+            }
+
+            selected.forEach((math, index) => {
+                const card = document.createElement('div');
+                card.className = 'mathematician-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.innerHTML = `
+                    <h2 class="mathematician-name">${math.name}</h2>
+                    <div class="mathematician-era">📅 ${math.era}</div>
+                    <p class="mathematician-about">${math.about}</p>
+                    <div class="mathematician-history">
+                        <div class="mathematician-history-title">📖 Historical Contribution:</div>
+                        <div>${math.history}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Load mathematicians on page load
+        window.addEventListener('load', loadMathematicians);
+    </script>
+</body>
+</html>
