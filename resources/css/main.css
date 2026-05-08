@@ -281,6 +281,12 @@ a {
   padding: 0.9rem;
 }
 
+.action-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
 .action-tile strong {
   display: block;
   margin-bottom: 0.2rem;
@@ -400,6 +406,80 @@ a {
 
 .subtle-note {
   color: var(--muted);
+}
+
+.schedule-table-wrap {
+  overflow-x: auto;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.schedule-table th,
+.schedule-table td {
+  border: 1px solid var(--border);
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.schedule-table th {
+  background: #e7f5f3;
+  color: var(--primary-strong);
+}
+
+.schedule-table td:first-child {
+  font-weight: 700;
+  background: #fbfdff;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.9rem;
+}
+
+.calendar-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+  padding: 1rem;
+}
+
+.calendar-item h3 {
+  margin: 0 0 0.45rem;
+  color: #c2410c;
+}
+
+.calendar-item p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.material-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.material-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  background: var(--surface-soft);
+}
+
+.material-card h3 {
+  margin: 0 0 0.5rem;
+  color: var(--primary-strong);
+}
+
+.material-card p {
+  margin: 0 0 0.95rem;
+  color: var(--muted);
+  line-height: 1.45;
 }
 
 @keyframes floatIn {
