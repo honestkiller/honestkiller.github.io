@@ -8,19 +8,21 @@
     <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-touch-icon.png">
     <link rel="manifest" href="resources/site.webmanifest">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="resources/css/main.css">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Nunito', sans-serif;
             margin: 0;
             background: linear-gradient(135deg, #1a237e 0%, #311b92 50%, #1a237e 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 1rem;
         }
 
         .nav-bar {
@@ -47,7 +49,7 @@
         h1 {
             text-align: center;
             color: #fff;
-            font-family: 'Indie Flower', cursive;
+            font-family: 'Baloo 2', cursive;
             font-size: 3rem;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -98,7 +100,7 @@
             font-size: 1.8rem;
             color: #1a237e;
             margin: 0 0 0.5rem 0;
-            font-family: 'Indie Flower', cursive;
+            font-family: 'Baloo 2', cursive;
         }
 
         .mathematician-era {
@@ -152,18 +154,27 @@
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="nav-bar">
-            <a href="index.html">Home</a>
-            <a href="explore.html">Back to Explore</a>
+<body style="--page-bg-image: url('https://images.unsplash.com/photo-1501139083538-0139583c060f?auto=format&fit=crop&w=1800&q=80');">
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html">Teaching Portal</a>
+            <nav class="site-nav">
+                <a href="index.html">Home</a>
+                <a href="explore.html" class="active">Explore</a>
+                <a href="puzzles.html">Puzzles</a>
+                <a href="about-me.html">About Me</a>
+            </nav>
         </div>
+    </header>
+    <main class="activity-wrap">
+    <div class="container">
 
         <h1>⏰ Time Travel Through Math</h1>
         <p class="subtitle">Journey through the brilliant minds who shaped mathematics</p>
 
         <div id="mathematiciansContainer" class="mathematicians-grid"></div>
     </div>
+    </main>
 
     <script>
         const mathematicians = [

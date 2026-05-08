@@ -4,199 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teaching Portal</title>
-    <!-- Common Icon Links -->
     <link rel="icon" type="image/png" sizes="32x32" href="resources/images/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-touch-icon.png">
     <link rel="manifest" href="resources/site.webmanifest">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background: #f4f8fb;
-            color: #333;
-        }
-        header {
-            background: #2c3e50;
-            color: #fff;
-            padding: 1.5rem 0;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(44,62,80,0.08);
-        }
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(44,62,80,0.10);
-            padding: 2rem;
-        }
-        h1 {
-            margin: 0 0 0.5rem 0;
-            font-size: 2.5rem;
-            letter-spacing: 1px;
-        }
-        h2 {
-            font-size: 1.5rem;
-            margin-top: 2rem;
-            color: #2c3e50;
-        }
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-        .feature {
-            flex: 1 1 220px;
-            background: #eaf2f8;
-            border-radius: 6px;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 1px 3px rgba(44,62,80,0.06);
-            transition: box-shadow 0.2s;
-        }
-        .feature:hover {
-            box-shadow: 0 4px 12px rgba(44,62,80,0.15);
-        }
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: #2980b9;
-        }
-        .cta {
-            display: block;
-            width: 100%;
-            text-align: center;
-            margin-top: 2.5rem;
-        }
-        .cta-btn {
-            background: #2980b9;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-            text-decoration: none;
-        }
-        .cta-btn:hover {
-            background: #1c6391;
-        }
-        footer {
-            text-align: center;
-            padding: 1.5rem 0;
-            color: #888;
-        }
-        .welcome-banner {
-            background: linear-gradient(135deg, #00b4db, #0083b0);
-            color: white;
-            text-align: center;
-            padding: 0.8rem;
-            position: relative;
-            overflow: hidden;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        .welcome-banner .close-banner {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            padding: 0.5rem;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            line-height: 24px;
-            font-size: 18px;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 1rem;
-            }
-            .features {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            h2 {
-                font-size: 1.2rem;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="resources/css/main.css">
 </head>
-<body>
-    <header>
-        <h1>Teaching Portal</h1>
-        <p>Empowering Students for Success</p>
-        <nav style="margin-top: 1rem;">
-            <a href="index.html" style="color: #fff; margin: 0 10px;">Home</a>
-            <a href="explore.html" style="color: #fff; margin: 0 10px;">Explore</a>
-            <a href="puzzles.html" style="color: #fff; margin: 0 10px;">Puzzles</a>
-            <a href="about-me.html" style="color: #fff; margin: 0 10px;">About Me</a>
-        </nav>
+<body style="--page-bg-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1800&q=80');">
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html">Teaching Portal</a>
+            <nav class="site-nav">
+                <a href="index.html" class="active">Home</a>
+                <a href="explore.html">Explore</a>
+                <a href="puzzles.html">Puzzles</a>
+                <a href="about-me.html">About Me</a>
+            </nav>
+        </div>
     </header>
-    <div class="container">
-        <div class="welcome-banner" id="welcomeBanner">
-            🌟 Welcome to Teaching Portal! Explore, Learn, and Have Fun! 
-            <span class="close-banner" onclick="closeBanner()">×</span>
-        </div>
-        <h2>Welcome, Students!</h2>
-        <p>
-            This portal is designed to help you access resources, track your progress, and connect with your teachers. Explore the features below to get started!
-        </p>
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">&#128218;</div>
-                <h3>Course Materials</h3>
-                <p>Access notes, assignments, and reference links for all your subjects.</p>
+
+    <main class="main-wrap">
+        <section class="hero">
+            <div class="hero-layout">
+                <div>
+                    <h1>Empowering Students for Success</h1>
+                    <p>This portal is designed to help you access resources, track your progress, and connect with your teachers in one place.</p>
+                    <div class="welcome-banner" id="welcomeBanner">
+                        🌟 Welcome to Teaching Portal! Explore, Learn, and Have Fun!
+                        <span class="close-banner" onclick="closeBanner()">×</span>
+                    </div>
+                </div>
+                <aside class="hero-panel">
+                    <h3>Today's Mission</h3>
+                    <ol class="mini-list">
+                        <li>Complete one Math activity</li>
+                        <li>Try a Word Game challenge</li>
+                        <li>Earn 50 learning points</li>
+                    </ol>
+                    <a href="explore.html" class="btn btn-primary" style="margin-top: 0.7rem;">Start Mission</a>
+                </aside>
             </div>
-            <div class="feature">
-                <div class="feature-icon">&#128197;</div>
-                <h3>Schedule & Calendar</h3>
-                <p>Stay updated with classes, exams, and important deadlines.</p>
+        </section>
+
+        <section class="section-block">
+            <h2>Welcome, Students!</h2>
+            <p>Explore the features below to get started with your learning journey.</p>
+            <div class="card-grid">
+                <article class="card">
+                    <div class="icon">📚</div>
+                    <h3>Course Materials</h3>
+                    <p>Access notes, assignments, and reference links for all your subjects.</p>
+                </article>
+                <article class="card">
+                    <div class="icon">📅</div>
+                    <h3>Schedule &amp; Calendar</h3>
+                    <p>Stay updated with classes, exams, and important deadlines.</p>
+                </article>
+                <article class="card">
+                    <div class="icon">👥</div>
+                    <h3>Discussion Forum</h3>
+                    <p>Ask questions and collaborate with peers and teachers.</p>
+                </article>
+                <article class="card">
+                    <div class="icon">📈</div>
+                    <h3>Progress Tracker</h3>
+                    <p>Monitor your grades, attendance, and achievements.</p>
+                </article>
             </div>
-            <div class="feature">
-                <div class="feature-icon">&#128101;</div>
-                <h3>Discussion Forum</h3>
-                <p>Ask questions and collaborate with peers and teachers.</p>
+            <p style="margin-top: 1.4rem;">
+                <a href="#" class="btn btn-primary">Login to Get Started</a>
+            </p>
+            <div class="actions-row">
+                <div class="action-tile">
+                    <strong>Quick Practice</strong>
+                    Jump into a 10-minute revision challenge.
+                </div>
+                <div class="action-tile">
+                    <strong>Progress Snapshot</strong>
+                    Track streaks, badges, and weekly goals.
+                </div>
+                <div class="action-tile">
+                    <strong>Ask for Help</strong>
+                    Get support from peers and teachers fast.
+                </div>
             </div>
-            <div class="feature">
-                <div class="feature-icon">&#128200;</div>
-                <h3>Progress Tracker</h3>
-                <p>Monitor your grades, attendance, and achievements.</p>
+        </section>
+
+        <section class="section-block">
+            <h2>Featured Learning Adventures</h2>
+            <p>Explore hands-on experiences designed to make each subject feel exciting and practical.</p>
+            <div class="card-grid">
+                <a href="science.html" class="card card-link image-card">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80" alt="Students working with a science model">
+                    <div class="image-card-content">
+                        <span class="tag">Science</span>
+                        <h3>Experiment Studio</h3>
+                        <p>Use guided experiments and see concepts in action.</p>
+                    </div>
+                </a>
+                <a href="math.html" class="card card-link image-card">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80" alt="Math equations on a blackboard">
+                    <div class="image-card-content">
+                        <span class="tag">Math</span>
+                        <h3>Math in Motion</h3>
+                        <p>Build confidence with visual puzzles and challenge levels.</p>
+                    </div>
+                </a>
+                <a href="code-club.html" class="card card-link image-card">
+                    <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80" alt="Student coding on a laptop">
+                    <div class="image-card-content">
+                        <span class="tag">Coding</span>
+                        <h3>Code Quest</h3>
+                        <p>Learn logic through mini coding missions and projects.</p>
+                    </div>
+                </a>
             </div>
-        </div>
-        <div class="cta">
-            <a href="#" class="cta-btn">Login to Get Started</a>
-        </div>
-    </div>
-    <footer>
+            <p class="attribution">Open-source images: Unsplash photos by CDC, Antoine Dautry, and Fatos Bytyqi.</p>
+        </section>
+    </main>
+
+    <footer class="footer">
         &copy; 2025 Teaching Portal. All rights reserved.
     </footer>
+
     <script>
         function closeBanner() {
             document.getElementById('welcomeBanner').style.display = 'none';
             localStorage.setItem('bannerClosed', 'true');
         }
 
-        // Check if banner was previously closed
         window.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('bannerClosed') === 'true') {
                 document.getElementById('welcomeBanner').style.display = 'none';
