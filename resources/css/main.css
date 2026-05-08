@@ -24,8 +24,33 @@ body {
   margin: 0;
   font-family: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text);
-  background: radial-gradient(circle at 10% 10%, #ffffff 0%, transparent 35%),
-    linear-gradient(140deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.62)),
+    radial-gradient(circle at 10% 10%, #ffffff 0%, transparent 35%),
+    linear-gradient(140deg, var(--bg-start) 0%, var(--bg-end) 100%),
+    var(--page-bg-image, none);
+  background-size: auto, auto, auto, cover;
+  background-position: center, center, center, center;
+  background-attachment: scroll, scroll, scroll, fixed;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-color: #f3f8ff;
+  background-blend-mode: normal, normal, multiply, normal;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.62)),
+    radial-gradient(circle at 10% 10%, #ffffff 0%, transparent 35%),
+    linear-gradient(140deg, rgba(244, 251, 248, 0.55) 0%, rgba(233, 241, 255, 0.55) 100%),
+    var(--page-bg-image, none);
+  background-size: auto, auto, auto, cover;
+  background-position: center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: scroll, scroll, scroll, fixed;
+  background-color: #f3f8ff;
+  background-blend-mode: normal, normal, normal, normal;
+  background: 
+    linear-gradient(rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.62)),
+    radial-gradient(circle at 10% 10%, #ffffff 0%, transparent 35%),
+    linear-gradient(140deg, rgba(244, 251, 248, 0.55) 0%, rgba(233, 241, 255, 0.55) 100%),
+    var(--page-bg-image, none) center/cover no-repeat fixed !important;
   min-height: 100vh;
 }
 
