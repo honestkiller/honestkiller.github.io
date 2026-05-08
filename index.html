@@ -26,11 +26,24 @@
 
     <main class="main-wrap">
         <section class="hero">
-            <h1>Empowering Students for Success</h1>
-            <p>This portal is designed to help you access resources, track your progress, and connect with your teachers in one place.</p>
-            <div class="welcome-banner" id="welcomeBanner">
-                🌟 Welcome to Teaching Portal! Explore, Learn, and Have Fun!
-                <span class="close-banner" onclick="closeBanner()">×</span>
+            <div class="hero-layout">
+                <div>
+                    <h1>Empowering Students for Success</h1>
+                    <p>This portal is designed to help you access resources, track your progress, and connect with your teachers in one place.</p>
+                    <div class="welcome-banner" id="welcomeBanner">
+                        🌟 Welcome to Teaching Portal! Explore, Learn, and Have Fun!
+                        <span class="close-banner" onclick="closeBanner()">×</span>
+                    </div>
+                </div>
+                <aside class="hero-panel">
+                    <h3>Today's Mission</h3>
+                    <ol class="mini-list">
+                        <li>Complete one Math activity</li>
+                        <li>Try a Word Game challenge</li>
+                        <li>Earn 50 learning points</li>
+                    </ol>
+                    <a href="explore.html" class="btn btn-primary" style="margin-top: 0.7rem;">Start Mission</a>
+                </aside>
             </div>
         </section>
 
@@ -62,6 +75,52 @@
             <p style="margin-top: 1.4rem;">
                 <a href="#" class="btn btn-primary">Login to Get Started</a>
             </p>
+            <div class="actions-row">
+                <div class="action-tile">
+                    <strong>Quick Practice</strong>
+                    Jump into a 10-minute revision challenge.
+                </div>
+                <div class="action-tile">
+                    <strong>Progress Snapshot</strong>
+                    Track streaks, badges, and weekly goals.
+                </div>
+                <div class="action-tile">
+                    <strong>Ask for Help</strong>
+                    Get support from peers and teachers fast.
+                </div>
+            </div>
+        </section>
+
+        <section class="section-block">
+            <h2>Featured Learning Adventures</h2>
+            <p>Explore hands-on experiences designed to make each subject feel exciting and practical.</p>
+            <div class="card-grid">
+                <a href="science.html" class="card card-link image-card">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80" alt="Students working with a science model">
+                    <div class="image-card-content">
+                        <span class="tag">Science</span>
+                        <h3>Experiment Studio</h3>
+                        <p>Use guided experiments and see concepts in action.</p>
+                    </div>
+                </a>
+                <a href="math.html" class="card card-link image-card">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80" alt="Math equations on a blackboard">
+                    <div class="image-card-content">
+                        <span class="tag">Math</span>
+                        <h3>Math in Motion</h3>
+                        <p>Build confidence with visual puzzles and challenge levels.</p>
+                    </div>
+                </a>
+                <a href="code-club.html" class="card card-link image-card">
+                    <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80" alt="Student coding on a laptop">
+                    <div class="image-card-content">
+                        <span class="tag">Coding</span>
+                        <h3>Code Quest</h3>
+                        <p>Learn logic through mini coding missions and projects.</p>
+                    </div>
+                </a>
+            </div>
+            <p class="attribution">Open-source images: Unsplash photos by CDC, Antoine Dautry, and Fatos Bytyqi.</p>
         </section>
     </main>
 

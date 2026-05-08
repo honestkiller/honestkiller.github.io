@@ -8,92 +8,43 @@
     <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-touch-icon.png">
     <link rel="manifest" href="resources/site.webmanifest">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="resources/css/main.css">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .game-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .problem {
-            font-size: 2.5rem;
-            margin: 2rem 0;
-            color: #2e7d32;
-            font-family: 'Indie Flower', cursive;
-        }
-
-        .answer-input {
-            font-size: 1.5rem;
-            padding: 0.5rem;
-            width: 150px;
-            border: 2px solid #81c784;
-            border-radius: 8px;
-            text-align: center;
-            margin: 1rem 0;
-        }
-
-        .submit-btn {
-            background: #2e7d32;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background: #1b5e20;
-        }
-
-        .score {
-            font-size: 1.2rem;
-            margin: 1rem 0;
-            color: #2e7d32;
-        }
-
-        .result {
-            margin: 1rem 0;
-            padding: 1rem;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .correct {
-            background: #c8e6c9;
-            color: #2e7d32;
-        }
-
-        .incorrect {
-            background: #ffcdd2;
-            color: #c62828;
-        }
+        .math-shell { max-width: 620px; margin: 0 auto; }
+        .problem { font-size: 2.5rem; margin: 2rem 0; color: #0f766e; font-family: 'Baloo 2', cursive; }
+        .answer-input { font-size: 1.4rem; padding: 0.6rem; width: 170px; border: 2px solid #8bcfc8; border-radius: 8px; text-align: center; margin: 1rem 0; }
+        .submit-btn { background: #0f766e; color: white; border: none; padding: 0.9rem 1.5rem; font-size: 1rem; border-radius: 999px; cursor: pointer; font-weight: 700; }
+        .submit-btn:hover { background: #115e59; }
+        .score { font-size: 1.15rem; margin: 1rem 0; color: #115e59; }
+        .result { margin: 1rem 0; padding: 1rem; border-radius: 10px; display: none; }
+        .correct { background: #dcfce7; color: #166534; }
+        .incorrect { background: #fee2e2; color: #991b1b; }
     </style>
 </head>
 <body>
-    <div class="game-container">
-        <h1>Math Magic Game 🎯</h1>
-        <div class="score">Score: <span id="score">0</span></div>
-        <div class="problem" id="problem"></div>
-        <input type="number" class="answer-input" id="answer" placeholder="Your answer">
-        <button class="submit-btn" onclick="checkAnswer()">Submit</button>
-        <div class="result" id="result"></div>
-        <button class="submit-btn" onclick="location.href='index.html'" style="background: #546e7a; margin-top: 2rem;">Back to Home</button>
-    </div>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html">Teaching Portal</a>
+            <nav class="site-nav">
+                <a href="index.html">Home</a>
+                <a href="explore.html" class="active">Explore</a>
+                <a href="puzzles.html">Puzzles</a>
+                <a href="about-me.html">About Me</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="activity-wrap">
+        <section class="activity-shell math-shell" style="text-align:center;">
+            <h1 class="activity-title">Math Magic Game 🎯</h1>
+            <p class="score">Score: <span id="score">0</span></p>
+            <div class="problem" id="problem"></div>
+            <input type="number" class="answer-input" id="answer" placeholder="Your answer">
+            <p><button class="submit-btn" onclick="checkAnswer()">Submit</button></p>
+            <div class="result" id="result"></div>
+        </section>
+    </main>
 
     <script>
         let score = 0;
@@ -104,20 +55,14 @@
             const num2 = Math.floor(Math.random() * 12) + 1;
             const operators = ['+', '-', '×'];
             const operator = operators[Math.floor(Math.random() * operators.length)];
-            
+
             const problemElement = document.getElementById('problem');
             problemElement.textContent = `${num1} ${operator} ${num2} = ?`;
-            
+
             switch(operator) {
-                case '+':
-                    correctAnswer = num1 + num2;
-                    break;
-                case '-':
-                    correctAnswer = num1 - num2;
-                    break;
-                case '×':
-                    correctAnswer = num1 * num2;
-                    break;
+                case '+': correctAnswer = num1 + num2; break;
+                case '-': correctAnswer = num1 - num2; break;
+                case '×': correctAnswer = num1 * num2; break;
             }
 
             document.getElementById('answer').value = '';
@@ -142,14 +87,9 @@
             document.getElementById('score').textContent = score;
         }
 
-        // Start the game
         generateProblem();
-
-        // Allow Enter key to submit answer
         document.getElementById('answer').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkAnswer();
-            }
+            if (e.key === 'Enter') checkAnswer();
         });
     </script>
 </body>

@@ -8,7 +8,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-touch-icon.png">
     <link rel="manifest" href="resources/site.webmanifest">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="resources/css/main.css">
     <style>
         * {
             margin: 0;
@@ -17,41 +18,27 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            font-family: 'Nunito', sans-serif;
+            background: radial-gradient(circle at 10% 10%, #ffffff 0%, transparent 35%),
+                linear-gradient(140deg, var(--bg-start) 0%, var(--bg-end) 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1080px;
             margin: 0 auto;
-        }
-
-        .nav-bar {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .nav-bar a {
-            display: inline-block;
-            padding: 0.7rem 1.5rem;
-            background: #2e7d32;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            margin: 0 0.5rem;
-            transition: background 0.3s ease;
-        }
-
-        .nav-bar a:hover {
-            background: #1b5e20;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            padding: 1.4rem;
         }
 
         h1 {
             text-align: center;
-            color: #2e7d32;
-            font-family: 'Indie Flower', cursive;
+            color: var(--primary-strong);
+            font-family: 'Baloo 2', cursive;
             font-size: 2.5rem;
             margin-bottom: 2rem;
         }
@@ -69,10 +56,11 @@
         }
 
         .calculator-wrapper {
-            background: white;
-            border-radius: 15px;
+            background: var(--surface-soft);
+            border-radius: var(--radius-md);
             padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border);
             width: 100%;
             max-width: 400px;
         }
@@ -85,15 +73,15 @@
         }
 
         .calculator-header h2 {
-            color: #2e7d32;
-            font-family: 'Indie Flower', cursive;
+            color: var(--primary-strong);
+            font-family: 'Baloo 2', cursive;
             font-size: 1.8rem;
             margin: 0;
         }
 
         .display {
-            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-            border: 3px solid #2e7d32;
+            background: #ffffff;
+            border: 2px solid #9dd7cf;
             border-radius: 8px;
             padding: 1.2rem;
             text-align: right;
@@ -102,7 +90,7 @@
             min-height: 60px;
             word-wrap: break-word;
             word-break: break-all;
-            color: #2e7d32;
+            color: var(--primary-strong);
             font-weight: 600;
         }
 
@@ -115,19 +103,19 @@
         .btn {
             padding: 1rem;
             font-size: 1rem;
-            border: 2px solid #2e7d32;
+            border: 2px solid #8bcfc8;
             border-radius: 8px;
             background: white;
-            color: #2e7d32;
+            color: var(--primary-strong);
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
         }
 
         .btn:hover {
-            background: #e8f5e9;
+            background: #e7f5f3;
             transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
         }
 
         .btn:active {
@@ -135,25 +123,25 @@
         }
 
         .btn.operator {
-            background: #c8e6c9;
-            color: #1b5e20;
+            background: #d8f1ed;
+            color: var(--primary-strong);
         }
 
         .btn.operator:hover {
-            background: #a5d6a7;
-            box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
+            background: #c1e8e2;
+            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
         }
 
         .btn.equals {
-            background: #2e7d32;
+            background: linear-gradient(120deg, var(--accent), #f97316);
             color: white;
             grid-column: span 2;
             font-size: 1.2rem;
         }
 
         .btn.equals:hover {
-            background: #1b5e20;
-            box-shadow: 0 4px 12px rgba(27, 94, 32, 0.4);
+            background: linear-gradient(120deg, #c2410c, #ea580c);
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
         }
 
         .btn.clear {
@@ -168,20 +156,21 @@
         }
 
         .instructions-section {
-            background: white;
-            border-radius: 15px;
+            background: var(--surface-soft);
+            border-radius: var(--radius-md);
             padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border);
             max-height: 900px;
             overflow-y: auto;
         }
 
         .instructions-section h2 {
-            color: #2e7d32;
-            font-family: 'Indie Flower', cursive;
+            color: var(--primary-strong);
+            font-family: 'Baloo 2', cursive;
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
-            border-bottom: 3px solid #2e7d32;
+            border-bottom: 3px solid #8bcfc8;
             padding-bottom: 1rem;
         }
 
@@ -190,7 +179,7 @@
         }
 
         .instruction-group h3 {
-            color: #1b5e20;
+            color: var(--primary-strong);
             font-size: 1.1rem;
             margin-bottom: 0.8rem;
             display: flex;
@@ -216,19 +205,19 @@
             content: "✓";
             position: absolute;
             left: 0;
-            color: #2e7d32;
+            color: var(--primary-strong);
             font-weight: bold;
         }
 
         .example {
-            background: #f5f5f5;
-            border-left: 4px solid #2e7d32;
+            background: #f8fcff;
+            border-left: 4px solid #8bcfc8;
             padding: 0.8rem;
             margin-top: 0.6rem;
             border-radius: 4px;
             font-family: 'Courier New', monospace;
             font-size: 0.9rem;
-            color: #1b5e20;
+            color: #115e59;
         }
 
         .instructions-section::-webkit-scrollbar {
@@ -241,12 +230,12 @@
         }
 
         .instructions-section::-webkit-scrollbar-thumb {
-            background: #2e7d32;
+            background: #8bcfc8;
             border-radius: 10px;
         }
 
         .instructions-section::-webkit-scrollbar-thumb:hover {
-            background: #1b5e20;
+            background: #69bdb2;
         }
 
         @media (max-width: 1024px) {
@@ -271,11 +260,20 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="nav-bar">
-            <a href="index.html">Home</a>
-            <a href="explore.html">Back to Explore</a>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html">Teaching Portal</a>
+            <nav class="site-nav">
+                <a href="index.html">Home</a>
+                <a href="explore.html" class="active">Explore</a>
+                <a href="puzzles.html">Puzzles</a>
+                <a href="about-me.html">About Me</a>
+            </nav>
         </div>
+    </header>
+
+    <main class="activity-wrap">
+    <div class="container">
 
         <h1>🧮 Scientific Calculator</h1>
 
@@ -401,6 +399,7 @@
             </div>
         </div>
     </div>
+    </main>
 
     <script>
         let displayValue = '0';

@@ -9,7 +9,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-touch-icon.png">
     <link rel="manifest" href="resources/site.webmanifest">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="resources/css/main.css">
     <style>
         @keyframes winLine {
             from { width: 0; }
@@ -17,42 +18,73 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+            font-family: 'Nunito', sans-serif;
+            background: radial-gradient(circle at 10% 10%, #ffffff 0%, transparent 35%),
+                linear-gradient(140deg, var(--bg-start) 0%, var(--bg-end) 100%);
             min-height: 100vh;
             margin: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: stretch;
         }
 
         .container {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin: 2rem;
+            box-sizing: border-box;
+            background: var(--surface);
+            padding: 1.3rem 1.6rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border);
+            margin: 1.4rem auto;
             text-align: center;
+            width: min(1080px, calc(100% - 1.2rem));
+            position: relative;
+            overflow: visible;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), #22c55e, var(--accent));
         }
 
         h1 {
-            color: #3f51b5;
-            font-family: 'Indie Flower', cursive;
-            font-size: 2.5rem;
+            color: var(--primary-strong);
+            font-family: 'Baloo 2', cursive;
+            font-size: clamp(1.9rem, 4vw, 2.4rem);
+            margin-bottom: 0.3rem;
+        }
+
+        .game-kicker {
+            margin-top: 0;
+            margin-bottom: 0.7rem;
+            color: var(--muted);
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
         }
 
         .board {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin: 2rem auto;
-            max-width: 300px;
+            margin: 0.9rem auto 0.8rem;
+            width: max-content;
         }
 
         .cell {
-            width: 90px;
-            height: 90px;
-            background: #e8eaf6;
+            width: 92px;
+            height: 92px;
+            background: #eef6ff;
+            border: 1px solid #d3e4f6;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -63,7 +95,7 @@
         }
 
         .cell:hover {
-            background: #c5cae9;
+            background: #dfefff;
         }
 
         .cell.x {
@@ -75,30 +107,34 @@
         }
 
         .status {
-            font-size: 1.5rem;
-            margin: 1rem 0;
-            min-height: 2rem;
-            color: #3f51b5;
+            font-size: 1.15rem;
+            margin: 0.5rem 0;
+            min-height: 1.2rem;
+            color: var(--primary-strong);
         }
 
         .controls {
-            margin-top: 2rem;
+            margin-top: 0.7rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
         }
 
         button {
-            background: #3f51b5;
+            background: linear-gradient(120deg, var(--accent), #f97316);
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
-            border-radius: 5px;
+            border-radius: 999px;
             cursor: pointer;
-            margin: 0 0.5rem;
+            margin: 0;
             font-size: 1rem;
             transition: background 0.3s ease;
         }
 
         button:hover {
-            background: #283593;
+            background: linear-gradient(120deg, #c2410c, #ea580c);
         }
 
         .win-line {
@@ -109,14 +145,14 @@
         }
 
         .difficulty-select {
-            margin: 1rem 0;
+            margin: 0;
         }
         
         select {
             padding: 0.5rem;
             font-size: 1rem;
-            border-radius: 5px;
-            border: 2px solid #3f51b5;
+            border-radius: 8px;
+            border: 2px solid #8bcfc8;
         }
 
         .thinking {
@@ -127,9 +163,10 @@
         .scoreboard {
             display: flex;
             justify-content: space-around;
-            margin: 1rem 0;
-            padding: 1rem;
-            background: #e8eaf6;
+            margin: 0.5rem 0;
+            padding: 0.7rem;
+            background: #f4f9ff;
+            border: 1px solid #d8e6f5;
             border-radius: 10px;
             width: 100%;
         }
@@ -137,40 +174,35 @@
         .score-item {
             flex: 1;
             text-align: center;
-            padding: 0.5rem 1rem;
+            padding: 0.35rem 0.6rem;
         }
 
         .score-item span:first-child {
             display: block;
             font-weight: bold;
-            color: #3f51b5;
+            color: var(--primary-strong);
         }
 
         .score-item span:last-child {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             color: #f44336;
         }
 
         .statistics {
-            margin-top: 2rem;
+            margin-top: 0.5rem;
             text-align: left;
-        }
-
-        .statistics h3 {
-            font-size: 1.8rem;
-            color: #3f51b5;
-            margin-bottom: 1rem;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
+            gap: 0.55rem;
         }
 
         .stat-item {
-            background: #e8eaf6;
-            padding: 1rem;
+            background: #f4f9ff;
+            border: 1px solid #d8e6f5;
+            padding: 0.6rem 0.5rem;
             border-radius: 10px;
             text-align: center;
         }
@@ -181,11 +213,11 @@
 
         .stat-item span:first-child {
             font-weight: bold;
-            color: #3f51b5;
+            color: var(--primary-strong);
         }
 
         .stat-item span:last-child {
-            font-size: 1.5rem;
+            font-size: 1.15rem;
             color: #f44336;
         }
 
@@ -203,13 +235,14 @@
         }
 
         .modal-content {
-            background: white;
+            background: var(--surface);
             padding: 2rem;
-            border-radius: 15px;
+            border-radius: var(--radius-md);
             text-align: center;
             animation: popIn 0.3s ease-out;
             max-width: 90%;
             width: 400px;
+            border: 1px solid var(--border);
         }
 
         .win-stats {
@@ -239,17 +272,55 @@
             pointer-events: none;
             opacity: 0.7;
         }
+
+        @media (max-width: 700px) {
+            .container {
+                width: calc(100% - 0.9rem);
+                margin: 1rem auto;
+                padding: 1.2rem;
+            }
+
+            .board {
+                gap: 8px;
+                max-width: 270px;
+            }
+
+            .cell {
+                width: 82px;
+                height: 82px;
+            }
+
+            .scoreboard {
+                padding: 0.6rem 0.35rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html">Teaching Portal</a>
+            <nav class="site-nav">
+                <a href="index.html">Home</a>
+                <a href="explore.html" class="active">Explore</a>
+                <a href="puzzles.html">Puzzles</a>
+                <a href="about-me.html">About Me</a>
+            </nav>
+        </div>
+    </header>
+    <main class="activity-wrap">
     <div class="container">
         <h1>Tic Tac Toe vs AI 🤖</h1>
-        <div class="difficulty-select">
-            <select id="difficulty">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
+        <p class="game-kicker">Challenge the AI and track your win rate</p>
+        <div class="top-controls">
+            <div class="difficulty-select">
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            <button onclick="resetGame()">New Game</button>
         </div>
         <div class="status" id="status">Your turn (X)</div>
         <div class="scoreboard">
@@ -267,6 +338,7 @@
             </div>
         </div>
         <div class="statistics">
+            <div class="stats-grid">
             <div class="stat-item">
                 <span>Win Rate</span>
                 <span id="winRate">0%</span>
@@ -274,6 +346,7 @@
             <div class="stat-item">
                 <span>Games Played</span>
                 <span id="gamesPlayed">0</span>
+            </div>
             </div>
         </div>
         <div class="board" id="board">
@@ -288,7 +361,6 @@
             <div class="cell" data-index="8"></div>
         </div>
         <div class="controls">
-            <button onclick="resetGame()">New Game</button>
             <button onclick="location.href='index.html'">Back to Home</button>
         </div>
 
@@ -305,6 +377,7 @@
             </div>
         </div>
     </div>
+    </main>
 
     <script>
         const sounds = {
