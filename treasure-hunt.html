@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Hunt Quest - Teaching Portal</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="resources/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-touch-icon.png">
+    <link rel="manifest" href="resources/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="resources/css/main.css">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.85), transparent 30%),
+                linear-gradient(135deg, rgba(255, 248, 225, 0.7), rgba(225, 245, 255, 0.7)),
+                var(--page-bg-image, none) center/cover no-repeat fixed !important;
+        }
+
+        .quest-shell {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .quest-panel,
+        .map-panel {
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .quest-panel {
+            padding: 1.5rem;
+        }
+
+        .map-panel {
+            padding: 1.2rem;
+            position: sticky;
+            top: 88px;
+        }
+
+        .quest-title {
+            margin: 0;
+            font-family: 'Baloo 2', cursive;
+            font-size: clamp(2rem, 4vw, 2.7rem);
+            color: #8a4b08;
+        }
+
+        .quest-kicker {
+            margin: 0.35rem 0 1rem;
+            color: var(--muted);
+            font-size: 1.02rem;
+        }
+
+        .intro-card {
+            background: linear-gradient(135deg, #fff4d6, #eef9ff);
+            border: 1px solid #f1d18a;
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-card {
+            background: #fbfdff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.9rem;
+            text-align: center;
+        }
+
+        .status-card strong {
+            display: block;
+            color: var(--primary-strong);
+            font-size: 1.4rem;
+        }
+
+        .stage-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: #fffef8;
+            padding: 1.2rem;
+        }
+
+        .stage-label {
+            display: inline-block;
+            border-radius: 999px;
+            background: #fef0c7;
+            color: #92400e;
+            padding: 0.25rem 0.7rem;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .stage-card h2 {
+            margin: 0.7rem 0 0.45rem;
+            color: var(--primary-strong);
+        }
+
+        .riddle-box {
+            background: #f5fbff;
+            border-left: 5px solid #0f766e;
+            border-radius: 12px;
+            padding: 0.95rem 1rem;
+            margin: 1rem 0;
+            color: #22415d;
+        }
+
+        .answer-row {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .answer-input {
+            flex: 1 1 240px;
+            min-width: 0;
+            border: 1px solid #c8d8e8;
+            border-radius: 999px;
+            padding: 0.85rem 1rem;
+            font: inherit;
+            background: white;
+        }
+
+        .answer-input:focus {
+            outline: 3px solid rgba(15, 118, 110, 0.12);
+            border-color: var(--primary);
+        }
+
+        .btn-secondary {
+            background: #e7f5f3;
+            color: var(--primary-strong);
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus-visible {
+            transform: translateY(-1px);
+        }
+
+        .feedback {
+            min-height: 1.4rem;
+            margin-top: 0.9rem;
+            font-weight: 700;
+        }
+
+        .feedback.success {
+            color: #166534;
+        }
+
+        .feedback.error {
+            color: #b91c1c;
+        }
+
+        .hint-box {
+            margin-top: 0.9rem;
+            background: #fff7ed;
+            border: 1px dashed #fdba74;
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            color: #9a3412;
+            display: none;
+        }
+
+        .hint-box.visible {
+            display: block;
+        }
+
+        .map-panel h3 {
+            margin-top: 0;
+            color: var(--primary-strong);
+        }
+
+        .treasure-map {
+            position: relative;
+            min-height: 420px;
+            border-radius: 18px;
+            background:
+                radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.6), transparent 18%),
+                linear-gradient(180deg, #f8e6b4 0%, #eed18f 100%);
+            border: 2px solid #d6b36b;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.22);
+        }
+
+        .trail {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .trail::before {
+            content: "";
+            position: absolute;
+            left: 18%;
+            top: 18%;
+            width: 60%;
+            height: 55%;
+            border: 4px dashed rgba(120, 84, 32, 0.45);
+            border-color: rgba(120, 84, 32, 0.45) transparent transparent transparent;
+            border-radius: 50%;
+            transform: rotate(12deg);
+        }
+
+        .trail::after {
+            content: "";
+            position: absolute;
+            left: 30%;
+            top: 44%;
+            width: 42%;
+            height: 26%;
+            border: 4px dashed rgba(120, 84, 32, 0.45);
+            border-color: transparent transparent rgba(120, 84, 32, 0.45) transparent;
+            border-radius: 50%;
+            transform: rotate(-6deg);
+        }
+
+        .map-node,
+        .player-marker {
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+
+        .map-node {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            border: 2px solid rgba(120, 84, 32, 0.26);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+        }
+
+        .map-node.active {
+            background: #fff7ed;
+            border-color: #f97316;
+            box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.12);
+        }
+
+        .map-node.cleared {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+
+        .map-node span {
+            position: absolute;
+            top: 58px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 96px;
+            text-align: center;
+            font-size: 0.77rem;
+            font-weight: 700;
+            color: #6b4c1f;
+        }
+
+        .player-marker {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: white;
+            border: 3px solid #0f766e;
+            box-shadow: 0 8px 18px rgba(15, 118, 110, 0.24);
+            transition: left 0.45s ease, top 0.45s ease;
+            z-index: 2;
+        }
+
+        .map-legend {
+            margin-top: 1rem;
+            background: #f9fcff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.9rem;
+            color: var(--muted);
+        }
+
+        .celebration {
+            display: none;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, #ecfccb, #fef3c7);
+            border: 1px solid #cbd5a7;
+            border-radius: var(--radius-md);
+            padding: 1rem;
+        }
+
+        .celebration.visible {
+            display: block;
+            animation: revealTreasure 0.45s ease-out;
+        }
+
+        .treasure-chest {
+            font-size: 3rem;
+            line-height: 1;
+            margin-bottom: 0.45rem;
+        }
+
+        @keyframes revealTreasure {
+            from {
+                transform: translateY(12px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .quest-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .map-panel {
+                position: static;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .status-row {
+                grid-template-columns: 1fr;
+            }
+
+            .quest-panel,
+            .map-panel {
+                padding: 1rem;
+            }
+
+            .treasure-map {
+                min-height: 360px;
+            }
+        }
+    </style>
+</head>
+<body style="--page-bg-image: url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1800&q=80');">
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html">Teaching Portal</a>
+            <nav class="site-nav">
+                <a href="index.html">Home</a>
+                <a href="course-materials.html">Course Materials</a>
+                <a href="explore.html" class="active">Explore</a>
+                <a href="course-schedule.html">Schedule &amp; Calendar</a>
+                <a href="puzzles.html">Puzzles</a>
+                <a href="about-me.html">About Me</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="activity-wrap">
+        <div class="quest-shell">
+            <section class="quest-panel">
+                <h1 class="quest-title">Treasure Hunt Quest</h1>
+                <p class="quest-kicker">Solve math, science, and reasoning clues to move from one checkpoint to the next and unlock the treasure.</p>
+
+                <div class="intro-card">
+                    <strong>Mission:</strong> You are following a hidden map across the island. Each correct answer reveals the next location. Get all the clues right to open the treasure chest.
+                </div>
+
+                <div class="status-row">
+                    <div class="status-card">
+                        Stage
+                        <strong><span id="stageCount">1</span>/5</strong>
+                    </div>
+                    <div class="status-card">
+                        Keys Found
+                        <strong id="keysFound">0</strong>
+                    </div>
+                    <div class="status-card">
+                        Hints Used
+                        <strong id="hintsUsed">0</strong>
+                    </div>
+                </div>
+
+                <div class="stage-card">
+                    <span class="stage-label" id="stageType">Math Clue</span>
+                    <h2 id="stageTitle">River Riddle</h2>
+                    <p id="stageStory">A note near the river gives the first clue. Crack it to find the next step.</p>
+
+                    <div class="riddle-box" id="stageQuestion"></div>
+
+                    <label for="answerInput" class="subtle-note">Type your answer below:</label>
+                    <div class="answer-row">
+                        <input id="answerInput" class="answer-input" type="text" autocomplete="off" placeholder="Enter your answer">
+                        <button id="checkBtn" class="btn btn-primary" type="button">Check Answer</button>
+                        <button id="hintBtn" class="btn btn-secondary" type="button">Show Hint</button>
+                    </div>
+
+                    <div id="feedback" class="feedback"></div>
+                    <div id="hintBox" class="hint-box"></div>
+
+                    <div class="answer-row" style="margin-top: 1.2rem;">
+                        <button id="nextBtn" class="btn btn-primary" type="button" style="display: none;">Next Checkpoint</button>
+                        <a href="explore.html" class="btn btn-secondary">Back to Explore</a>
+                    </div>
+                </div>
+
+                <div id="celebration" class="celebration">
+                    <div class="treasure-chest">Treasure Unlocked</div>
+                    <strong id="treasureTitle">Amazing work, explorer!</strong>
+                    <p id="treasureMessage">You solved every clue and discovered the hidden learning treasure.</p>
+                    <div class="answer-row">
+                        <button id="restartBtn" class="btn btn-primary" type="button">Play Again</button>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="map-panel">
+                <h3>Adventure Map</h3>
+                <div class="treasure-map">
+                    <div class="trail"></div>
+                    <div class="map-node" data-node="0" style="left: 16%; top: 18%;">1<span>River</span></div>
+                    <div class="map-node" data-node="1" style="left: 44%; top: 27%;">2<span>Forest</span></div>
+                    <div class="map-node" data-node="2" style="left: 72%; top: 22%;">3<span>Lab Cave</span></div>
+                    <div class="map-node" data-node="3" style="left: 62%; top: 56%;">4<span>Bridge</span></div>
+                    <div class="map-node" data-node="4" style="left: 84%; top: 76%;">5<span>Treasure</span></div>
+                    <div id="playerMarker" class="player-marker" style="left: 16%; top: 18%;">🧭</div>
+                </div>
+                <div class="map-legend">
+                    Correct answers move your marker forward. When all five checkpoints are complete, the final treasure message appears.
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        const stages = [
+            {
+                type: 'Math Clue',
+                title: 'River Riddle',
+                story: 'A note near the river says the next direction is hidden inside a number puzzle.',
+                question: 'I am thinking of a number. Double it and add 6 to get 20. What is the number?',
+                answers: ['7'],
+                hint: 'Work backward from 20: subtract 6 first, then divide by 2.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Forest Pattern',
+                story: 'Footprints in the forest follow a pattern. Find the missing step to stay on the trail.',
+                question: 'What comes next in the pattern: 2, 4, 8, 16, __ ?',
+                answers: ['32'],
+                hint: 'Each number is multiplied by the same amount.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Lab Cave Lock',
+                story: 'A glowing cave door opens only if you answer the science clue correctly.',
+                question: 'Which planet is known as the Red Planet?',
+                answers: ['mars'],
+                hint: 'It is the fourth planet from the Sun.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Bridge Balance',
+                story: 'A wooden bridge has a code carved into it. Solve it before crossing.',
+                question: 'A triangle has sides of 5 cm, 5 cm, and 6 cm. Is it scalene, isosceles, or equilateral?',
+                answers: ['isosceles'],
+                hint: 'Two sides are the same length.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Treasure Chest Cipher',
+                story: 'The final lock asks one last thinking question before the chest opens.',
+                question: 'A treasure map says: "I speak without a mouth and hear without ears." What is it?',
+                answers: ['echo', 'an echo'],
+                hint: 'It repeats what you say.'
+            }
+        ];
+
+        let currentStage = 0;
+        let solvedStages = 0;
+        let hintsUsed = 0;
+        let hintShownForStage = false;
+
+        const stageType = document.getElementById('stageType');
+        const stageTitle = document.getElementById('stageTitle');
+        const stageStory = document.getElementById('stageStory');
+        const stageQuestion = document.getElementById('stageQuestion');
+        const answerInput = document.getElementById('answerInput');
+        const feedback = document.getElementById('feedback');
+        const hintBox = document.getElementById('hintBox');
+        const stageCount = document.getElementById('stageCount');
+        const keysFound = document.getElementById('keysFound');
+        const hintsUsedLabel = document.getElementById('hintsUsed');
+        const nextBtn = document.getElementById('nextBtn');
+        const celebration = document.getElementById('celebration');
+        const playerMarker = document.getElementById('playerMarker');
+        const mapNodes = document.querySelectorAll('.map-node');
+
+        function normalizeAnswer(value) {
+            return value.trim().toLowerCase().replace(/\s+/g, ' ');
+        }
+
+        function loadStage() {
+            const stage = stages[currentStage];
+            stageType.textContent = stage.type;
+            stageTitle.textContent = stage.title;
+            stageStory.textContent = stage.story;
+            stageQuestion.textContent = stage.question;
+            stageCount.textContent = currentStage + 1;
+            keysFound.textContent = solvedStages;
+            feedback.textContent = '';
+            feedback.className = 'feedback';
+            hintBox.textContent = stage.hint;
+            hintBox.classList.remove('visible');
+            nextBtn.style.display = 'none';
+            answerInput.value = '';
+            answerInput.disabled = false;
+            document.getElementById('checkBtn').disabled = false;
+            hintShownForStage = false;
+            updateMap();
+            answerInput.focus();
+        }
+
+        function updateMap() {
+            mapNodes.forEach((node, index) => {
+                node.classList.toggle('active', index === currentStage);
+                node.classList.toggle('cleared', index < solvedStages);
+            });
+
+            const markerIndex = Math.min(solvedStages, stages.length - 1);
+            const activeNode = mapNodes[markerIndex];
+            playerMarker.style.left = activeNode.style.left;
+            playerMarker.style.top = activeNode.style.top;
+        }
+
+        function checkAnswer() {
+            const stage = stages[currentStage];
+            const userAnswer = normalizeAnswer(answerInput.value);
+
+            if (!userAnswer) {
+                feedback.textContent = 'Enter an answer before checking the clue.';
+                feedback.className = 'feedback error';
+                return;
+            }
+
+            const isCorrect = stage.answers.includes(userAnswer);
+
+            if (isCorrect) {
+                solvedStages = currentStage + 1;
+                keysFound.textContent = solvedStages;
+                feedback.textContent = 'Correct. You unlocked this checkpoint.';
+                feedback.className = 'feedback success';
+                answerInput.disabled = true;
+                document.getElementById('checkBtn').disabled = true;
+                updateMap();
+
+                if (currentStage === stages.length - 1) {
+                    showTreasure();
+                } else {
+                    nextBtn.style.display = 'inline-block';
+                }
+            } else {
+                feedback.textContent = 'Not quite. Try again or use the hint for support.';
+                feedback.className = 'feedback error';
+            }
+        }
+
+        function showHint() {
+            if (!hintShownForStage) {
+                hintsUsed += 1;
+                hintsUsedLabel.textContent = hintsUsed;
+                hintShownForStage = true;
+            }
+
+            hintBox.classList.add('visible');
+        }
+
+        function goToNextStage() {
+            if (currentStage < stages.length - 1) {
+                currentStage += 1;
+                loadStage();
+            }
+        }
+
+        function showTreasure() {
+            celebration.classList.add('visible');
+            document.getElementById('treasureTitle').textContent = hintsUsed === 0
+                ? 'Perfect treasure run!'
+                : 'Treasure found!';
+            document.getElementById('treasureMessage').textContent = `You solved ${solvedStages} clues and found the learning treasure. Great job using math, science, and reasoning together.`;
+            nextBtn.style.display = 'none';
+            mapNodes[stages.length - 1].classList.add('cleared');
+            playerMarker.textContent = '🏆';
+        }
+
+        function restartGame() {
+            currentStage = 0;
+            solvedStages = 0;
+            hintsUsed = 0;
+            hintsUsedLabel.textContent = '0';
+            playerMarker.textContent = '🧭';
+            celebration.classList.remove('visible');
+            loadStage();
+        }
+
+        document.getElementById('checkBtn').addEventListener('click', checkAnswer);
+        document.getElementById('hintBtn').addEventListener('click', showHint);
+        document.getElementById('nextBtn').addEventListener('click', goToNextStage);
+        document.getElementById('restartBtn').addEventListener('click', restartGame);
+        answerInput.addEventListener('keydown', event => {
+            if (event.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+
+        loadStage();
+    </script>
+</body>
+</html>
