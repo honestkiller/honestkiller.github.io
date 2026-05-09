@@ -443,7 +443,7 @@
     </main>
 
     <script>
-        const stages = [
+        const questionBank = [
             {
                 type: 'Math Clue',
                 title: 'River Riddle',
@@ -453,20 +453,12 @@
                 hint: 'Work backward from 20: subtract 6 first, then divide by 2.'
             },
             {
-                type: 'Reasoning Clue',
-                title: 'Forest Pattern',
-                story: 'Footprints in the forest follow a pattern. Find the missing step to stay on the trail.',
-                question: 'What comes next in the pattern: 2, 4, 8, 16, __ ?',
-                answers: ['32'],
-                hint: 'Each number is multiplied by the same amount.'
-            },
-            {
-                type: 'Science Clue',
-                title: 'Lab Cave Lock',
-                story: 'A glowing cave door opens only if you answer the science clue correctly.',
-                question: 'Which planet is known as the Red Planet?',
-                answers: ['mars'],
-                hint: 'It is the fourth planet from the Sun.'
+                type: 'Math Clue',
+                title: 'Pebble Count',
+                story: 'The pebbles near the riverbank form a neat multiplication clue.',
+                question: 'What is 9 x 7?',
+                answers: ['63'],
+                hint: 'Think of 7 groups of 9.'
             },
             {
                 type: 'Math Clue',
@@ -477,14 +469,446 @@
                 hint: 'Two sides are the same length.'
             },
             {
+                type: 'Math Clue',
+                title: 'Lantern Fractions',
+                story: 'A glowing lantern shows part of the answer in fraction form.',
+                question: 'What is 1/2 + 1/4?',
+                answers: ['3/4', 'three fourths', 'three-fourths'],
+                hint: 'Change both fractions to the same denominator.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Cave Equation',
+                story: 'A chalkboard in the cave has one missing value.',
+                question: 'Solve: 3x = 27. What is x?',
+                answers: ['9'],
+                hint: 'Divide both sides by 3.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Treasure Steps',
+                story: 'Stone steps are numbered in a pattern.',
+                question: 'What comes next: 5, 10, 15, 20, __ ?',
+                answers: ['25'],
+                hint: 'Add the same number each time.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Compass Angles',
+                story: 'The compass markings hide a geometry clue.',
+                question: 'How many degrees are in a right angle?',
+                answers: ['90', '90 degrees'],
+                hint: 'It is one quarter of a full turn.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Coin Pouch',
+                story: 'A small pouch has equal coins that add up to the code.',
+                question: 'If you have 4 coins worth 5 each, what is the total?',
+                answers: ['20'],
+                hint: 'Multiply 4 by 5.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Hidden Rectangle',
+                story: 'A map border forms a rectangle with a secret area clue.',
+                question: 'What is the area of a rectangle with length 8 and width 3?',
+                answers: ['24'],
+                hint: 'Area of a rectangle is length x width.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Rope Measure',
+                story: 'A measuring rope is folded in half to reveal the answer.',
+                question: 'Half of 48 is what number?',
+                answers: ['24'],
+                hint: 'Divide 48 by 2.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Map Scale',
+                story: 'The edge of the map shows a quick division clue.',
+                question: 'What is 56 divided by 8?',
+                answers: ['7'],
+                hint: 'Think of the multiplication fact with 8.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Gem Pattern',
+                story: 'The gems on the cave wall repeat in a growing pattern.',
+                question: 'What comes next: 3, 6, 12, 24, __ ?',
+                answers: ['48'],
+                hint: 'Each number doubles.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Puzzle Lock',
+                story: 'A lock opens with the result of a quick subtraction.',
+                question: 'What is 100 - 37?',
+                answers: ['63'],
+                hint: 'Subtract 30, then subtract 7.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Market Clue',
+                story: 'Old treasure market records hide a percent clue.',
+                question: 'What is 50% of 18?',
+                answers: ['9'],
+                hint: '50% means half.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Treasure Crates',
+                story: 'Crates are stacked in rows around the camp.',
+                question: 'There are 6 rows with 4 crates in each row. How many crates are there?',
+                answers: ['24'],
+                hint: 'Multiply rows by crates in each row.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Clock Tower',
+                story: 'The old clock tower gives a time clue.',
+                question: 'How many minutes are in 2 hours?',
+                answers: ['120'],
+                hint: 'Each hour has 60 minutes.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Number Stones',
+                story: 'Number stones on the path form a simple odd-number trail.',
+                question: 'What comes next: 1, 3, 5, 7, __ ?',
+                answers: ['9'],
+                hint: 'Add 2 each time.'
+            },
+            {
+                type: 'Math Clue',
+                title: 'Treasure Split',
+                story: 'The map says the treasure must be shared equally among explorers.',
+                question: 'If 36 gold coins are shared equally among 4 students, how many does each student get?',
+                answers: ['9'],
+                hint: 'Divide 36 by 4.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Lab Cave Lock',
+                story: 'A glowing cave door opens only if you answer the science clue correctly.',
+                question: 'Which planet is known as the Red Planet?',
+                answers: ['mars'],
+                hint: 'It is the fourth planet from the Sun.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Sunlight Secret',
+                story: 'A bright beam points to the next clue.',
+                question: 'What star gives Earth light and heat?',
+                answers: ['sun', 'the sun'],
+                hint: 'It is at the center of our solar system.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Waterfall Wonder',
+                story: 'Mist near the waterfall hides a states-of-matter clue.',
+                question: 'What do we call water when it turns into gas?',
+                answers: ['water vapor', 'vapour', 'water vapour', 'vapor'],
+                hint: 'It is the gaseous form of water.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Plant Path',
+                story: 'Leaves on the path spell out a life science question.',
+                question: 'Which part of the plant usually absorbs water from the soil?',
+                answers: ['roots', 'root'],
+                hint: 'It grows underground.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Energy Torch',
+                story: 'A torch symbol asks about forms of energy.',
+                question: 'What kind of energy from the Sun helps plants make food?',
+                answers: ['light energy', 'sunlight', 'light'],
+                hint: 'Plants use it in photosynthesis.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Gravity Gate',
+                story: 'A heavy stone gate asks what force pulls things down.',
+                question: 'What force pulls objects toward Earth?',
+                answers: ['gravity'],
+                hint: 'It keeps us on the ground.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Moon Marker',
+                story: 'A silver symbol on the map asks about Earth\'s natural satellite.',
+                question: 'What is Earth\'s natural satellite called?',
+                answers: ['moon', 'the moon'],
+                hint: 'You can see it in the night sky.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Animal Trail',
+                story: 'Footprints near the bushes lead to an animal science clue.',
+                question: 'Which animal group has feathers: mammals, reptiles, or birds?',
+                answers: ['birds', 'bird'],
+                hint: 'They lay eggs and most can fly.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Magnet Mission',
+                story: 'A metal box stays shut until the magnet clue is solved.',
+                question: 'Which metal is strongly attracted to magnets: wood, plastic, or iron?',
+                answers: ['iron'],
+                hint: 'It is a common metal used in tools.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Weather Watch',
+                story: 'Cloud symbols on the map reveal a weather clue.',
+                question: 'What instrument is used to measure temperature?',
+                answers: ['thermometer', 'a thermometer'],
+                hint: 'You use it to see how hot or cold something is.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Food Chain Clue',
+                story: 'A jungle poster shows animals connected by arrows.',
+                question: 'Plants make their own food. Are they producers or consumers?',
+                answers: ['producers', 'producer'],
+                hint: 'They produce food through photosynthesis.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Shadow Stone',
+                story: 'A shadow on the cave wall hides a light clue.',
+                question: 'A shadow forms when light is blocked by what?',
+                answers: ['an object', 'object'],
+                hint: 'Something must stand in the way of the light.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Habitat Hint',
+                story: 'The map shows fish near the next checkpoint.',
+                question: 'What habitat do fish live in?',
+                answers: ['water'],
+                hint: 'Rivers, lakes, and oceans are examples.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Sky Signal',
+                story: 'The explorer radio asks about the gas we need to breathe.',
+                question: 'Which gas do humans need to breathe to stay alive?',
+                answers: ['oxygen'],
+                hint: 'Plants release it into the air.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Rocky Clue',
+                story: 'A mountain rock has a simple Earth science question.',
+                question: 'Molten rock that comes out of a volcano is called what?',
+                answers: ['lava'],
+                hint: 'It flows when a volcano erupts.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Sound Signal',
+                story: 'An echo in the tunnel points to a sound question.',
+                question: 'Does sound travel faster through air or water?',
+                answers: ['water'],
+                hint: 'It moves faster through many liquids and solids than gases.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Body Clue',
+                story: 'A skeleton drawing on the wall gives the next hint.',
+                question: 'Which organ pumps blood through your body?',
+                answers: ['heart', 'the heart'],
+                hint: 'It beats all day long.'
+            },
+            {
+                type: 'Science Clue',
+                title: 'Season Spinner',
+                story: 'A spinning compass asks why we have seasons.',
+                question: 'Are seasons mainly caused by Earth\'s tilt or the Moon\'s light?',
+                answers: ['earths tilt', "earth's tilt", 'tilt'],
+                hint: 'It changes how sunlight reaches Earth during the year.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Forest Pattern',
+                story: 'Footprints in the forest follow a pattern. Find the missing step to stay on the trail.',
+                question: 'What comes next in the pattern: 2, 4, 8, 16, __ ?',
+                answers: ['32'],
+                hint: 'Each number is multiplied by the same amount.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Torch Riddle',
+                story: 'A talking torch offers a classic riddle.',
+                question: 'What has hands but cannot clap?',
+                answers: ['clock', 'a clock'],
+                hint: 'It tells time.'
+            },
+            {
                 type: 'Reasoning Clue',
                 title: 'Treasure Chest Cipher',
                 story: 'The final lock asks one last thinking question before the chest opens.',
                 question: 'A treasure map says: "I speak without a mouth and hear without ears." What is it?',
                 answers: ['echo', 'an echo'],
                 hint: 'It repeats what you say.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Bridge Pattern',
+                story: 'Symbols on the bridge follow a growing sequence.',
+                question: 'What comes next: A, C, E, G, __ ?',
+                answers: ['i'],
+                hint: 'Skip one letter each time.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Cave Boxes',
+                story: 'You see three boxes with one special pattern.',
+                question: 'Which number does not belong: 2, 4, 6, 9, 8?',
+                answers: ['9'],
+                hint: 'Most of the numbers share one property.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Direction Decode',
+                story: 'The compass path uses left and right turns.',
+                question: 'If you turn left three times, which direction are you facing if you started facing north?',
+                answers: ['east'],
+                hint: 'North to west is one left turn.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Word Ladder',
+                story: 'A clue scroll asks you to think carefully about language.',
+                question: 'Which word does not belong: apple, mango, carrot, banana?',
+                answers: ['carrot'],
+                hint: 'Three of them are fruits.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Mirror Message',
+                story: 'A mirror near the wall asks a shape question.',
+                question: 'How many lines of symmetry does a square have?',
+                answers: ['4', 'four'],
+                hint: 'Count vertical, horizontal, and diagonal lines.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Campfire Logic',
+                story: 'Three explorers compare clues around the campfire.',
+                question: 'If all roses are flowers and some flowers fade quickly, can we say all roses fade quickly? Answer yes or no.',
+                answers: ['no'],
+                hint: 'The second statement talks about only some flowers.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Secret Order',
+                story: 'A code wheel asks you to sort ideas into the right order.',
+                question: 'Which comes first alphabetically: island, igloo, insect?',
+                answers: ['igloo'],
+                hint: 'Compare letter by letter after "i".'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Stone Sequence',
+                story: 'Numbered stepping stones reveal an alternating pattern.',
+                question: 'What comes next: 1, 4, 2, 5, 3, 6, __ ?',
+                answers: ['4'],
+                hint: 'Two patterns are interleaved.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Lantern Logic',
+                story: 'Two lanterns glow and one stays dim.',
+                question: 'Which one is different: triangle, square, circle, rectangle?',
+                answers: ['circle'],
+                hint: 'Three of them have straight sides.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Treasure Trail',
+                story: 'The trail markers show a simple positional clue.',
+                question: 'If today is Monday, what day will it be after 3 days?',
+                answers: ['thursday'],
+                hint: 'Count Tuesday as day 1.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Gatekeeper Riddle',
+                story: 'A stone face asks a riddle before opening the gate.',
+                question: 'What has a neck but no head?',
+                answers: ['bottle', 'a bottle'],
+                hint: 'You can fill it with water.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Map Grid',
+                story: 'The map squares hide a position puzzle.',
+                question: 'Which number is halfway between 20 and 30?',
+                answers: ['25'],
+                hint: 'Find the middle value.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Camp Signal',
+                story: 'A signal flag uses opposite ideas as the clue.',
+                question: 'What is the opposite of "ancient"?',
+                answers: ['modern', 'new'],
+                hint: 'Think of something current, not old.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Treasure Doors',
+                story: 'Three doors stand ahead, but only one clue matters.',
+                question: 'If one door is red, one is blue, and one is green, which color is in the middle when listed alphabetically?',
+                answers: ['green'],
+                hint: 'Order the color names by spelling, not by rainbow order.'
+            },
+            {
+                type: 'Reasoning Clue',
+                title: 'Path Puzzle',
+                story: 'Arrow marks on the ground follow a simple comparison clue.',
+                question: 'Which is heavier: 1 kilogram of sand or 1 kilogram of rice?',
+                answers: ['same', 'they are the same', 'equal'],
+                hint: 'Both amounts have the same mass.'
             }
         ];
+
+        const wordBank = [
+            { word: 'Curious', meaning: 'Eager to learn or know more.' },
+            { word: 'Brilliant', meaning: 'Very smart, bright, or impressive.' },
+            { word: 'Discover', meaning: 'To find something new or interesting.' },
+            { word: 'Journey', meaning: 'An adventure from one place to another.' },
+            { word: 'Puzzle', meaning: 'A problem that needs careful thinking.' },
+            { word: 'Wisdom', meaning: 'Good sense and knowledge from learning.' },
+            { word: 'Treasure', meaning: 'Something special and valuable.' },
+            { word: 'Courage', meaning: 'Bravery when doing something challenging.' },
+            { word: 'Wonder', meaning: 'A feeling of surprise and admiration.' },
+            { word: 'Explore', meaning: 'To look around and learn by discovering.' },
+            { word: 'Invent', meaning: 'To create something new.' },
+            { word: 'Observe', meaning: 'To notice carefully and pay attention.' },
+            { word: 'Imagine', meaning: 'To form pictures or ideas in your mind.' },
+            { word: 'Focus', meaning: 'To pay full attention to something.' },
+            { word: 'Clarity', meaning: 'Being clear and easy to understand.' },
+            { word: 'Adventure', meaning: 'An exciting experience full of discovery.' },
+            { word: 'Insight', meaning: 'A deep understanding of something.' },
+            { word: 'Spark', meaning: 'A small start that creates excitement or ideas.' },
+            { word: 'Balance', meaning: 'A steady and equal arrangement.' },
+            { word: 'Victory', meaning: 'Success after effort or challenge.' }
+        ];
+
+        const TOTAL_STAGES = 5;
+        const DAILY_SEED = new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'Asia/Kolkata',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).format(new Date());
+        let stages = [];
 
         let currentStage = 0;
         let solvedStages = 0;
@@ -505,6 +929,41 @@
         const celebration = document.getElementById('celebration');
         const playerMarker = document.getElementById('playerMarker');
         const mapNodes = document.querySelectorAll('.map-node');
+
+        function hashSeed(seed) {
+            let hash = 2166136261;
+            for (let index = 0; index < seed.length; index += 1) {
+                hash ^= seed.charCodeAt(index);
+                hash = Math.imul(hash, 16777619);
+            }
+            return hash >>> 0;
+        }
+
+        function createSeededRandom(seed) {
+            let state = hashSeed(seed) || 1;
+            return function nextRandom() {
+                state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+                return state / 4294967296;
+            };
+        }
+
+        function shuffleList(items, seed) {
+            const shuffled = [...items];
+            const random = createSeededRandom(seed);
+            for (let index = shuffled.length - 1; index > 0; index -= 1) {
+                const swapIndex = Math.floor(random() * (index + 1));
+                [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+            }
+            return shuffled;
+        }
+
+        function buildStageSet() {
+            stages = shuffleList(questionBank, DAILY_SEED).slice(0, TOTAL_STAGES);
+        }
+
+        function getDailyWord() {
+            return shuffleList(wordBank, `${DAILY_SEED}-word`)[0];
+        }
 
         function normalizeAnswer(value) {
             return value.trim().toLowerCase().replace(/\s+/g, ' ');
@@ -593,11 +1052,12 @@
         }
 
         function showTreasure() {
+            const dailyWord = getDailyWord();
             celebration.classList.add('visible');
             document.getElementById('treasureTitle').textContent = hintsUsed === 0
-                ? 'Perfect treasure run!'
-                : 'Treasure found!';
-            document.getElementById('treasureMessage').textContent = `You solved ${solvedStages} clues and found the learning treasure. Great job using math, science, and reasoning together.`;
+                ? `Perfect treasure run! Today's word is "${dailyWord.word}".`
+                : `Treasure found! Today's word is "${dailyWord.word}".`;
+            document.getElementById('treasureMessage').textContent = `You solved ${solvedStages} clues and found the word of the day. "${dailyWord.word}" means: ${dailyWord.meaning}`;
             nextBtn.style.display = 'none';
             mapNodes[stages.length - 1].classList.add('cleared');
             playerMarker.textContent = '🏆';
@@ -623,6 +1083,7 @@
             }
         });
 
+        buildStageSet();
         loadStage();
     </script>
 </body>
